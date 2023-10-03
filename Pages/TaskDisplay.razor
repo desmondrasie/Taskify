@@ -1,0 +1,52 @@
+﻿@page "/list/{ListId:int}"
+
+<PageTitle>Task Display</PageTitle>
+
+<MudText Align="Align.Center">
+    <h1>Task Display</h1>
+</MudText>
+
+<MudGrid Justify="Justify.Center">
+    <MudItem sm="7">
+        @if (CurrentList == null)
+        {
+            <p>Loading...</p>
+        }
+        else
+        {
+            <MudText Typo="Typo.h6" GutterBottom="true">@CurrentList.Name</MudText>
+            //... rest of your component
+        }
+        <MudPaper Width="100%" Elevation="3">
+            @if (HasTasks)
+            {
+                <MudList>
+                    @foreach (var task in tasks)
+                    {
+                        <MudListItem>
+                            <MudGrid Justify="Justify.FlexStart">
+                                <MudCheckBox Checked="@task.IsChecked" CheckedChanged="@CreateCheckCallback(task)" Color="Color.Primary" Style="margin-top: 21px" Dense="true"></MudCheckBox>
+                                <MudTextField @bind-Value="@task.Description" OnBlur="@(() => HandleEditTask(task))" Clearable="true" Immediate="true"></MudTextField>
+                                <MudItem xs="1" sm="1" md="1">
+                                    <MudFab Color="Color.Default" OnClick="@(() => HandleDeleteTask(task))" EndIcon="@Icons.Material.Rounded.Delete" Size="Size.Small"></MudFab>
+                                </MudItem>
+                            </MudGrid>
+                        </MudListItem>
+                    }
+                </MudList>
+            }
+            else
+            {
+                <MudText Align="Align.Center" Typo="Typo.overline" Style="margin-left: 10px">
+                    There are no pending tasks
+                </MudText>
+            }
+        </MudPaper>
+        <MudTextField @bind-Value="newTask.Description" Label="Enter a new task" Variant="Variant.Outlined" Clearable="true" Style="margin-top: 10px; margin-bottom: 10px"></MudTextField>
+@*         <MudSelect HelperText="Helper text" T="string" Label="With Helper" Variant="Variant.Text">
+            <MudSelectItem Value="@("Tyrannosaur")" />
+            <MudSelectItem Value="@("Mike Rex")" />
+        </MudSelect> *@
+        <MudButton OnClick="HandleCreateTask" Variant="Variant.Filled" Color="Color.Success" StartIcon="@Icons.Material.Rounded.AddCircleOutline">Add Task</MudButton>
+    </MudItem>
+</MudGrid>
