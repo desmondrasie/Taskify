@@ -14,7 +14,7 @@ namespace Taskify.Pages
         [Inject]
         public ISnackbar Snackbar { get; set; } = null!;
         public TaskList newList { get; set; } = new TaskList();
-        public List<TaskList> masterList { get; set; } = new List<Taskify.Models.TaskList>();
+        public List<TaskList> masterList { get; set; } = new List<TaskList>();
 
         private string ComputeLinkHref(int id)
         {

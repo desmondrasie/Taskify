@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Taskify.Data;
-
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace Taskify.Services
 {
@@ -60,6 +60,7 @@ namespace Taskify.Services
             task.IsChecked = !task.IsChecked;           
             _context.Entry(task).State = EntityState.Modified;
             await _context.SaveChangesAsync();
+
         }
     }
 }

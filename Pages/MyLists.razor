@@ -9,12 +9,10 @@
 <MudGrid Justify="Justify.Center">
     <MudItem sm="7">
         <MudText Typo="Typo.h5" GutterBottom="true">All Lists</MudText>
-        
             <MudList>
                 @foreach (var list in masterList)
                 {
-                    
-                    <MudPaper Width="100%" Elevation="3"  Style="margin-bottom: 20px">
+@*                     <MudPaper Width="100%" Elevation="3"  Style="margin-bottom: 20px">
                         <MudListItem>
                             <MudGrid Justify="Justify.Center">
                                 <MudLink Href="@ComputeLinkHref(list.Id)" Typo="Typo.h5"Color="Color.Dark">@list.Name </MudLink>
@@ -25,7 +23,15 @@
                             </MudItem>
                             </MudGrid>
                         </MudListItem>
-                    </MudPaper>
+                    </MudPaper> *@
+                    <MudButton Href="@ComputeLinkHref(list.Id)"
+                               Target="_self"
+                               Variant="Variant.Filled"                               
+                               Color="Color.Default"
+                               FullWidth="true"
+                               Style="margin-bottom: 20px">
+                        @list.Name
+                    </MudButton>
                 }
             </MudList>        
         <MudTextField @bind-Value="newList.Name" Label="Enter a new List" Variant="Variant.Outlined" Clearable="true" Style="margin-top: 10px; margin-bottom: 10px"></MudTextField>

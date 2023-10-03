@@ -10,13 +10,19 @@ namespace Taskify.Pages
         [Inject]
         public ITaskService TaskService { get; set; } = null!;
         [Inject]
+        public IListService ListService { get; set; } = null!;
+        [Inject]
         public ISnackbar Snackbar { get; set; } = null!;
 
         public TaskItem newTask { get; set; } = new TaskItem();
         public List<TaskItem> tasks { get; set; } = new List<TaskItem>();
         public bool HasTasks => tasks.Any();
+        public bool HasLists => masterList.Any();
+
+        public List<TaskList> masterList { get; set; } = new List<TaskList>();
         protected override async Task OnInitializedAsync()
         {
+            masterList = (await ListService.GetAllLists()).ToList();
             tasks = (await TaskService.GetPendingTasks()).ToList();
         }
 
@@ -49,6 +55,7 @@ namespace Taskify.Pages
             await TaskService.CheckTask(task);
             tasks.Remove(task);                       
             Snackbar.Add($"'{task.Description}' has been completed! ", Severity.Success);
+            StateHasChanged();
         }
         private EventCallback<bool> CreateCheckCallback(TaskItem task)
         {
