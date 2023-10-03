@@ -34,7 +34,7 @@ namespace Taskify.Pages
 
                     
                     await TaskService.AddTask(newTask,CurrentList.Id);
-                    Snackbar.Add($"'{newTask.Description}' has been added.", Severity.Normal);
+                    //Snackbar.Add($"'{newTask.Description}' has been added.", Severity.Normal);
                     newTask = new TaskItem();  // Reset for next entry
                     tasks = (await TaskService.GetPendingTasks(CurrentList.Id)).ToList();  // Refresh the list
                 
