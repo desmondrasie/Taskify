@@ -15,7 +15,7 @@
                 @foreach (var list in masterList)
                 {
                     <MudGrid Justify="Justify.Center">
-                        <MudItem sm="11">
+                        <MudItem sm="10">
                             <MudButton Href="@ComputeLinkHref(list.Id)"
                                        Target="_self"
                                        Variant="Variant.Filled"
@@ -25,7 +25,12 @@
                                 @list.Name
                             </MudButton>
                         </MudItem>
-
+                        <MudItem sm="1" Style="margin-top: 5px">
+                            <MudText Typo="Typo.h6">
+                                @list.Tasks.Count(t => !t.IsChecked)
+                            </MudText>
+                            
+                        </MudItem>
                         <MudItem sm="1">
                             <MudFab Color="Color.Default" OnClick="@(() => HandleDeleteList(list))" EndIcon="@Icons.Material.Rounded.Delete" Size="Size.Small"></MudFab>
                         </MudItem>

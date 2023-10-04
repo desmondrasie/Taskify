@@ -17,8 +17,11 @@ namespace Taskify.Services
         }
         public async Task<IEnumerable<TaskList>> GetAllLists()
         {
-            return await _context.TaskList.ToListAsync();
+            return await _context.TaskList
+                                 .Include(tl => tl.Tasks)
+                                 .ToListAsync();
         }
+
         public async Task AddList(TaskList list)
         {
             _context.TaskList.Add(list);

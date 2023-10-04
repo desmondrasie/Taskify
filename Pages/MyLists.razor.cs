@@ -21,7 +21,6 @@ namespace Taskify.Pages
         {
             return $"/list/{id}";
         }
-
         protected override async Task OnInitializedAsync()
         {
             masterList = (await ListService.GetAllLists()).ToList();
