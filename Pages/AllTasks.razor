@@ -9,16 +9,16 @@
 <MudGrid Justify="Justify.Center">
     <MudItem sm="7">
         <MudText Typo="Typo.h6" GutterBottom="true">All Tasks</MudText>
-        <MudPaper Width="100%" Elevation="3">
+        @* <MudPaper Width="100%" Elevation="3"> *@
             @if (HasLists)
             {
                 <MudList>
                     @foreach (var list in masterList)
                     {                        
-                        <MudPaper Width="100%" Elevation="3" Style="margin-bottom: 20px">
+                        <MudPaper Width="100%" Elevation="5"  Style="margin-top: 20px; margin-bottom:5px">
                             <MudListItem>
                                 <MudGrid Justify="Justify.Center">
-                                    <MudText Typo="Typo.h5"> @list.Name </MudText>
+                                    <MudText Typo="Typo.h5" Style="margin-top: 10px"> @list.Name </MudText>
                                 </MudGrid>
                             </MudListItem>
                         </MudPaper>
@@ -35,15 +35,17 @@
                             {
                                 if (task.TaskListId == list.Id)
                                 {
-                                    <MudListItem>
-                                        <MudGrid Justify="Justify.FlexStart">
-                                            <MudCheckBox Checked="@task.IsChecked" CheckedChanged="@CreateCheckCallback(task)" Color="Color.Primary" Style="margin-top: 21px" Dense="true"></MudCheckBox>
-                                            <MudTextField @bind-Value="@task.Description" OnBlur="@(() => HandleEditTask(task))" Clearable="true" Immediate="true"></MudTextField>
-                                            <MudItem xs="1" sm="1" md="1">
-                                                <MudFab Color="Color.Default" OnClick="@(() => HandleDeleteTask(task))" EndIcon="@Icons.Material.Rounded.Delete" Size="Size.Small"></MudFab>
-                                            </MudItem>
-                                        </MudGrid>
-                                    </MudListItem>
+                                    <MudPaper Width = "100%" Elevation = "2" Style="margin-bottom: 2px">
+                                        <MudListItem>
+                                            <MudGrid Justify="Justify.FlexStart">
+                                                <MudCheckBox Checked="@task.IsChecked" CheckedChanged="@CreateCheckCallback(task)" Color="Color.Primary" Style="margin-top: 21px" Dense="true"></MudCheckBox>
+                                                <MudTextField @bind-Value="@task.Description" OnBlur="@(() => HandleEditTask(task))" Clearable="true" Immediate="true"></MudTextField>
+                                                <MudItem xs="1" sm="1" md="1">
+                                                    <MudFab Color="Color.Default" OnClick="@(() => HandleDeleteTask(task))" EndIcon="@Icons.Material.Rounded.Delete" Size="Size.Small"></MudFab>
+                                                </MudItem>
+                                            </MudGrid>
+                                        </MudListItem>
+                                    </MudPaper>
                                 }
 
                             }
@@ -58,7 +60,7 @@
                     No Lists Found. Create A List And Add Some Tasks!
                 </MudText>
             }
-        </MudPaper>
+        @* </MudPaper> *@
         <MudTextField @bind-Value="newTask.Description" Label="Enter a new task" Variant="Variant.Outlined" Clearable="true" Style="margin-top: 10px; margin-bottom: 10px"></MudTextField>
         <MudButton OnClick="HandleCreateTask" Variant="Variant.Filled" Color="Color.Success" StartIcon="@Icons.Material.Rounded.AddCircleOutline">Add Task</MudButton>
     </MudItem>

@@ -8,32 +8,38 @@
 
 <MudGrid Justify="Justify.Center">
     <MudItem sm="7">
-        <MudText Typo="Typo.h5" GutterBottom="true">All Lists</MudText>
+        <MudText Typo="Typo.h6" GutterBottom="true">All Lists</MudText>
+        @if (HasLists)
+        {
             <MudList>
                 @foreach (var list in masterList)
                 {
-@*                     <MudPaper Width="100%" Elevation="3"  Style="margin-bottom: 20px">
-                        <MudListItem>
-                            <MudGrid Justify="Justify.Center">
-                                <MudLink Href="@ComputeLinkHref(list.Id)" Typo="Typo.h5"Color="Color.Dark">@list.Name </MudLink>
-                            </MudGrid>
-                            <MudGrid Justify="Justify.FlexEnd">
-                            <MudItem xs="1" sm="1" md="1">
-                                <MudFab Color="Color.Default" OnClick="@(() => HandleDeleteList(list))" EndIcon="@Icons.Material.Rounded.Delete" Size="Size.Small"></MudFab>
-                            </MudItem>
-                            </MudGrid>
-                        </MudListItem>
-                    </MudPaper> *@
-                    <MudButton Href="@ComputeLinkHref(list.Id)"
-                               Target="_self"
-                               Variant="Variant.Filled"                               
-                               Color="Color.Default"
-                               FullWidth="true"
-                               Style="margin-bottom: 20px">
-                        @list.Name
-                    </MudButton>
+                    <MudGrid Justify="Justify.Center">
+                        <MudItem sm="11">
+                            <MudButton Href="@ComputeLinkHref(list.Id)"
+                                       Target="_self"
+                                       Variant="Variant.Filled"
+                                       Color="Color.Default"
+                                       FullWidth="true"
+                                       Style="margin-bottom: 20px">
+                                @list.Name
+                            </MudButton>
+                        </MudItem>
+
+                        <MudItem sm="1">
+                            <MudFab Color="Color.Default" OnClick="@(() => HandleDeleteList(list))" EndIcon="@Icons.Material.Rounded.Delete" Size="Size.Small"></MudFab>
+                        </MudItem>
+                    </MudGrid>
                 }
-            </MudList>        
+            </MudList>
+        }
+        else
+        {
+            <MudText Align="Align.Center" Typo="Typo.overline" Style="margin-left: 10px">
+                No Lists Found. Create A List And Add Some Tasks!
+            </MudText>
+        }
+
         <MudTextField @bind-Value="newList.Name" Label="Enter a new List" Variant="Variant.Outlined" Clearable="true" Style="margin-top: 10px; margin-bottom: 10px"></MudTextField>
         <MudButton OnClick="HandleCreateList" Variant="Variant.Filled" Color="Color.Success" StartIcon="@Icons.Material.Rounded.AddCircleOutline">Create A List</MudButton>
     </MudItem>
