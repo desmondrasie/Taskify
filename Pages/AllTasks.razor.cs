@@ -24,6 +24,7 @@ namespace Taskify.Pages
         {
             masterList = (await ListService.GetAllLists()).ToList();
             tasks = (await TaskService.GetPendingTasks()).ToList();
+
         }
 
         protected async Task HandleCreateTask()
@@ -53,7 +54,8 @@ namespace Taskify.Pages
         protected async Task HandleCheckTask(TaskItem task)
         {
             await TaskService.CheckTask(task);
-            tasks.Remove(task);                       
+            tasks.Remove(task);
+            
             Snackbar.Add($"'{task.Description}' has been completed! ", Severity.Success);
             StateHasChanged();
         }

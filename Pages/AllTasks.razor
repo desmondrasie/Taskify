@@ -14,8 +14,7 @@
             {
                 <MudList>
                     @foreach (var list in masterList)
-                    {
-                        
+                    {                        
                         <MudPaper Width="100%" Elevation="3" Style="margin-bottom: 20px">
                             <MudListItem>
                                 <MudGrid Justify="Justify.Center">
@@ -24,7 +23,7 @@
                             </MudListItem>
                         </MudPaper>
 
-                        if (list.Tasks.Count == 0)
+                        @if (list.Tasks.Count(t => !t.IsChecked) == 0) // THIS IS IMPORTANT! REASON FOR BUG, it counts completed tasks too!!!
                         {
                             <MudText Align="Align.Center" Typo="Typo.overline" Style="margin-left: 10px">
                                 This List Is Empty, Add Some Tasks!
