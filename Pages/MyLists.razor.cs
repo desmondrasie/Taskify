@@ -13,6 +13,8 @@ namespace Taskify.Pages
         public IListService ListService { get; set; } = null!;
         [Inject]
         public ISnackbar Snackbar { get; set; } = null!;
+        [Inject]
+        public IDialogService DialogService { get; set; } = null!;
         public TaskList newList { get; set; } = new TaskList();
         public bool HasLists => masterList.Any();
         public List<TaskList> masterList { get; set; } = new List<TaskList>();
@@ -21,6 +23,7 @@ namespace Taskify.Pages
         {
             return $"/list/{id}";
         }
+ 
         protected override async Task OnInitializedAsync()
         {
             masterList = (await ListService.GetAllLists()).ToList();
@@ -41,6 +44,37 @@ namespace Taskify.Pages
         {
             await ListService.DeleteList(list);
             Snackbar.Add($"'{list.Name}' has been deleted.", Severity.Error);
+            masterList = (await ListService.GetAllLists()).ToList();
+        }
+         private async Task OpenDialogEdit(TaskList list)
+        {
+            var parameters = new DialogParameters { ["CurrentName"] = list.Name };
+            var dialog = DialogService.Show<EditListDialog>("Edit List Name", parameters);
+            var result = await dialog.Result;
+
+            if (!result.Canceled)
+            {
+                var newName = (string)result.Data;
+                await HandleEditListName(list, newName);
+            }
+        }
+        private async Task OpenDialogDelete(TaskList list)
+        {
+            var parameters = new DialogParameters { ["listName"] = list.Name };
+            var dialog = DialogService.Show<DeleteListDialog>("Delete List", parameters);
+            var result = await dialog.Result;
+
+            if (!result.Canceled && (string)result.Data == "true")
+            {
+                var newName = (string)result.Data;
+                await HandleDeleteList(list);
+            }
+        }
+
+        protected async Task HandleEditListName(TaskList list, string newName)
+        {
+            list.Name = newName;
+            await ListService.EditListName(list);
             masterList = (await ListService.GetAllLists()).ToList();
         }
     }

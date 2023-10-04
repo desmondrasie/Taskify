@@ -25,15 +25,21 @@
                                 @list.Name
                             </MudButton>
                         </MudItem>
-                        <MudItem sm="1" Style="margin-top: 5px">
+                        <MudItem sm="1" Style="margin-top: 3px; margin-left: 5px">
                             <MudText Typo="Typo.h6">
                                 @list.Tasks.Count(t => !t.IsChecked)
                             </MudText>
                             
                         </MudItem>
-                        <MudItem sm="1">
-                            <MudFab Color="Color.Default" OnClick="@(() => HandleDeleteList(list))" EndIcon="@Icons.Material.Rounded.Delete" Size="Size.Small"></MudFab>
+
+                        <MudItem sm="1" Style="margin-left: -30px; margin-top:-4px">
+                            <MudMenu Icon="@Icons.Material.Filled.Settings" Dense="true" AnchorOrigin="Origin.CenterRight" TransformOrigin="Origin.TopLeft">
+                                <MudMenuItem OnClick="@(() => OpenDialogEdit(list))">Edit Name</MudMenuItem>
+                                <MudMenuItem OnClick="@(() => OpenDialogDelete(list))">Delete Name</MudMenuItem>
+                            </MudMenu>
                         </MudItem>
+                        
+                        
                     </MudGrid>
                 }
             </MudList>

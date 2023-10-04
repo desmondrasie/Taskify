@@ -38,5 +38,10 @@ namespace Taskify.Services
             _context.TaskList.Remove(list);
             await _context.SaveChangesAsync();
         }
+        public async Task EditListName(TaskList list)
+        {
+            _context.Entry(list).State = EntityState.Modified; // Mark the task as modified.
+            await _context.SaveChangesAsync(); // Save changes.
+        }
     }
 }

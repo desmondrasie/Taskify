@@ -8,5 +8,5 @@ public interface IListService
     Task AddList(TaskList list);
     Task<TaskList> GetListById(int id);
     Task DeleteList(TaskList list);
-
+    Task EditListName(TaskList list);
 }

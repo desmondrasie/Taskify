@@ -1,0 +1,15 @@
+﻿<MudDialog>
+    <DialogContent>
+        <MudGrid Justify="Justify.Center" Style="margin-bottom: 5px">
+            <MudText Color="Color.Error" Typo="Typo.h6">
+                @listName
+            </MudText>
+        </MudGrid>
+        
+        <MudText> Do you really want to delete this list? This process cannot be undone. </MudText>
+    </DialogContent>
+    <DialogActions>
+        <MudButton Color="Color.Default" OnClick="Cancel">Cancel</MudButton>
+        <MudButton Color="Color.Error" Variant="Variant.Filled" OnClick="Delete">Delete</MudButton>
+    </DialogActions>
+</MudDialog>

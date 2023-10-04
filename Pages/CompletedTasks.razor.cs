@@ -13,6 +13,7 @@ namespace Taskify.Pages
         [Inject]
         public ISnackbar Snackbar { get; set; } = null!;
 
+
         public TaskItem newTask { get; set; } = new TaskItem();
         public List<TaskItem> tasks { get; set; } = new List<TaskItem>();
 
