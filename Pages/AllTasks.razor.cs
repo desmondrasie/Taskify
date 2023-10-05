@@ -40,13 +40,6 @@ namespace Taskify.Pages
         {
             originalDescription = task.Description;
         }
-        private void HandleSelection()
-        {
-            if (listNameToId.TryGetValue(selectedListName, out var selectedId))
-            {
-                // Now you have selectedId, use it as needed.
-            }
-        }
         protected async Task HandleCreateTask()
         {
             if (!string.IsNullOrWhiteSpace(newTask.Description) && listNameToId.TryGetValue(selectedListName, out var selectedListId))
