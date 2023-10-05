@@ -12,18 +12,14 @@
         @if (HasLists)
         {
             <MudList>
+                <MudDivider Style="margin-bottom: 15px"/>
                 @foreach (var list in masterList)
                 {
                     <MudGrid Justify="Justify.Center">
                         <MudItem sm="10">
-                            <MudButton Href="@ComputeLinkHref(list.Id)"
-                                       Target="_self"
-                                       Variant="Variant.Filled"
-                                       Color="Color.Default"
-                                       FullWidth="true"
-                                       Style="margin-bottom: 20px">
+                            <MudLink Href="@ComputeLinkHref(list.Id)" Typo="Typo.h6" Style="text-align: center; display: block;">
                                 @list.Name
-                            </MudButton>
+                            </MudLink>
                         </MudItem>
                         <MudItem sm="1" Style="margin-top: 3px; margin-left: 0px">
                             <MudText Typo="Typo.h6">
@@ -36,6 +32,7 @@
                                 <MudMenuItem OnClick="@(() => OpenDialogDelete(list))">Delete</MudMenuItem>
                             </MudMenu>
                         </MudItem>
+                        <MudDivider Style="margin-bottom: 15px"/>
                     </MudGrid>
                 }
             </MudList>
