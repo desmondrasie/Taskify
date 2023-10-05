@@ -2,48 +2,71 @@
 
 <PageTitle>My Lists</PageTitle>
 
-<MudText Align="Align.Center">
+@* <MudText Align="Align.Center">
     <h1>My Lists</h1>
-</MudText>
+</MudText> *@
 
 <MudGrid Justify="Justify.Center">
-    <MudItem sm="7">
-        <MudText Typo="Typo.h6" GutterBottom="true">All Lists</MudText>
-        @if (HasLists)
-        {
-            <MudList>
-                <MudDivider Style="margin-bottom: 15px"/>
-                @foreach (var list in masterList)
-                {
-                    <MudGrid Justify="Justify.Center">
-                        <MudItem sm="10">
-                            <MudLink Href="@ComputeLinkHref(list.Id)" Typo="Typo.h6" Style="text-align: center; display: block;">
-                                @list.Name
-                            </MudLink>
-                        </MudItem>
-                        <MudItem sm="1" Style="margin-top: 3px; margin-left: 0px">
-                            <MudText Typo="Typo.h6">
-                                (@list.Tasks.Count(t => !t.IsChecked))
-                            </MudText>
-                        </MudItem>
-                        <MudItem sm="1" Style="margin-left: -22px; margin-top:-4px">
-                            <MudMenu Icon="@Icons.Material.Filled.Settings" Dense="true" AnchorOrigin="Origin.CenterRight" TransformOrigin="Origin.TopLeft">
-                                <MudMenuItem OnClick="@(() => OpenDialogEdit(list))">Edit</MudMenuItem>
-                                <MudMenuItem OnClick="@(() => OpenDialogDelete(list))">Delete</MudMenuItem>
-                            </MudMenu>
-                        </MudItem>
-                        <MudDivider Style="margin-bottom: 15px"/>
-                    </MudGrid>
-                }
-            </MudList>
-        }
-        else
-        {
-            <MudText Align="Align.Center" Typo="Typo.overline" Style="margin-left: 10px">
-                No Lists Found. Create A List And Add Some Tasks!
-            </MudText>
-        }
-        <MudTextField @bind-Value="newList.Name" Label="Enter a new List" Variant="Variant.Outlined" Clearable="true" Style="margin-top: 10px; margin-bottom: 10px"></MudTextField>
-        <MudButton OnClick="HandleCreateList" Variant="Variant.Filled" Color="Color.Success" StartIcon="@Icons.Material.Rounded.AddCircleOutline">Create A List</MudButton>
+    <MudItem sm="8" Style="margin-top: 20px">
+        <MudPaper Width="100%" Elevation="3" Style="margin-top: 10px">
+            <MudGrid Justify="Justify.FlexStart">
+                <MudItem sm="8">
+                    <MudText Typo="Typo.h5" GutterBottom="false" Align="Align.Left" Style="margin-left: 10px"> <b>My Lists</b></MudText>
+                </MudItem>                
+            </MudGrid>
+            
+            @if (HasLists)
+            {
+                <MudList>
+                    @foreach (var list in masterList)
+                    {
+                        <MudDivider Style="margin-bottom: 15px" />
+                        <MudGrid Justify="Justify.Center">
+                            <MudItem sm="10">
+                                <MudLink Href="@ComputeLinkHref(list.Id)" Typo="Typo.h6" Style="text-align: center; display: block;">
+                                    @list.Name
+                                </MudLink>
+                            </MudItem>
+                            <MudItem sm="1" Style="margin-top: 3px; margin-left: 0px">
+                                <MudText Typo="Typo.h6">
+                                    (@list.Tasks.Count(t => !t.IsChecked))
+                                </MudText>
+                            </MudItem>
+                            <MudItem sm="1" Style="margin-left: -22px; margin-top:-4px">
+                                <MudMenu Icon="@Icons.Material.Filled.Settings" Dense="true" AnchorOrigin="Origin.CenterRight" TransformOrigin="Origin.TopLeft">
+                                    <MudMenuItem OnClick="@(() => OpenDialogEdit(list))">Edit</MudMenuItem>
+                                    <MudMenuItem OnClick="@(() => OpenDialogDelete(list))">Delete</MudMenuItem>
+                                </MudMenu>
+                            </MudItem>
+                           
+                        </MudGrid>
+                        
+                    }
+                </MudList>
+            }
+            else
+            {
+                <MudText Align="Align.Center" Typo="Typo.overline" Style="margin-left: 10px">
+                    No Lists Found. Create A List And Add Some Tasks!
+                </MudText>
+            }
+        </MudPaper>
     </MudItem>
- </MudGrid>
+</MudGrid>
+
+<MudGrid Justify="Justify.Center">
+    <MudItem sm="8">
+        <MudPaper Width="100%" Elevation="3" Square="false" Style="margin-top: 10px">
+            <MudGrid Justify="Justify.Center">
+                <MudItem sm="9">
+                    <MudTextField @bind-Value="newList.Name" Label="Enter a new List" Variant="Variant.Outlined" Clearable="true" Style="margin-top: 10px; margin-bottom: 10px"></MudTextField>
+                </MudItem>
+                <MudItem sm="2" Style="margin-top: 25px">
+                    <MudButton OnClick="HandleCreateList" Variant="Variant.Filled" Color="Color.Success"  StartIcon="@Icons.Material.Rounded.AddCircleOutline">Create</MudButton>
+                </MudItem>
+            </MudGrid>
+        </MudPaper>
+    </MudItem>
+</MudGrid>
+
+
