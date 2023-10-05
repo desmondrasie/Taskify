@@ -14,30 +14,53 @@ namespace Taskify.Pages
         [Inject]
         public ISnackbar Snackbar { get; set; } = null!;
 
-
+        private Dictionary<string, int> listNameToId = new Dictionary<string, int>();
+        private string selectedListName = null!;
         public TaskItem newTask { get; set; } = new TaskItem();
+        public TaskList CurrentList { get; set; } = null!;
         public List<TaskItem> tasks { get; set; } = new List<TaskItem>();
         public bool HasTasks => tasks.Any();
         public bool HasLists => masterList.Any();
-
-        public List<TaskList> masterList { get; set; } = new List<TaskList>();
+        public ICollection<TaskList> masterList { get; set; } = new List<TaskList>();
+        [Parameter]
+        public int ListId { get; set; }
         protected override async Task OnInitializedAsync()
         {
+            
             masterList = (await ListService.GetAllLists()).ToList();
             tasks = (await TaskService.GetPendingTasks()).ToList();
-
+            listNameToId = masterList.ToDictionary(list => list.Name, list => list.Id);
+            //CurrentList = await ListService.GetListById(ListId);
         }
 
+
+        private void HandleSelection()
+        {
+            if (listNameToId.TryGetValue(selectedListName, out var selectedId))
+            {
+                // Now you have selectedId, use it as needed.
+            }
+        }
         protected async Task HandleCreateTask()
         {
-            if (!string.IsNullOrWhiteSpace(newTask.Description))
+            if (!string.IsNullOrWhiteSpace(newTask.Description) && listNameToId.TryGetValue(selectedListName, out var selectedListId))
             {
-                //await TaskService.AddTask(newTask,id);
-                Snackbar.Add($"'{newTask.Description}' has been added.", Severity.Normal);
+                
+                await TaskService.AddTask(newTask,selectedListId);
+                Snackbar.Add($"'{newTask.Description}' has been added to '{selectedListName}'.", Severity.Normal);
                 newTask = new TaskItem();  // Reset for next entry
                 tasks = (await TaskService.GetPendingTasks()).ToList();  // Refresh the list
             }
+            else if (string.IsNullOrWhiteSpace(newTask.Description))
+            {
+                Snackbar.Add($"Task description cannot be empty.", Severity.Error);
+            }
+            else
+            {
+                Snackbar.Add($"Please select a valid list.", Severity.Error);
+            }
         }
+
         protected async Task HandleDeleteTask(TaskItem task)
         {
             if (task != null && task.Id != 0)

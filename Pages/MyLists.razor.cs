@@ -17,7 +17,7 @@ namespace Taskify.Pages
         public IDialogService DialogService { get; set; } = null!;
         public TaskList newList { get; set; } = new TaskList();
         public bool HasLists => masterList.Any();
-        public List<TaskList> masterList { get; set; } = new List<TaskList>();
+        public ICollection<TaskList> masterList { get; set; } = new List<TaskList>();
 
         private string ComputeLinkHref(int id)
         {
@@ -33,12 +33,24 @@ namespace Taskify.Pages
         {
             if (!string.IsNullOrWhiteSpace(newList.Name))
             {
-                await ListService.AddList(newList);
-                Snackbar.Add($"'{newList.Name}' has been created.", Severity.Normal);
-                newList = new TaskList();  // Reset for next entry
-                masterList = (await ListService.GetAllLists()).ToList();  // Refresh the list
-                StateHasChanged();
+                if(!masterList.Any(list => list.Name == newList.Name))
+                {
+                    await ListService.AddList(newList);
+                    Snackbar.Add($"'{newList.Name}' has been created.", Severity.Normal);
+                    newList = new TaskList();  // Reset for next entry
+                    masterList = (await ListService.GetAllLists()).ToList();  // Refresh the list
+                    StateHasChanged();
+                }
+                else
+                {
+                    Snackbar.Add($"'{newList.Name}' already exists", Severity.Warning);
+                }
             }
+            else
+            {
+                Snackbar.Add($"List Name cannot be blank", Severity.Warning);
+            }
+
         }
         protected async Task HandleDeleteList(TaskList list)
         {

@@ -31,14 +31,10 @@ namespace Taskify.Pages
         {
             if (!string.IsNullOrWhiteSpace(newTask.Description))
             {
-
-                    
-                    await TaskService.AddTask(newTask,CurrentList.Id);
-                    //Snackbar.Add($"'{newTask.Description}' has been added.", Severity.Normal);
-                    newTask = new TaskItem();  // Reset for next entry
-                    tasks = (await TaskService.GetPendingTasks(CurrentList.Id)).ToList();  // Refresh the list
-                
-                
+                await TaskService.AddTask(newTask,CurrentList.Id);
+                //Snackbar.Add($"'{newTask.Description}' has been added.", Severity.Normal);
+                newTask = new TaskItem();  // Reset for next entry
+                tasks = (await TaskService.GetPendingTasks(CurrentList.Id)).ToList();  // Refresh the list
             }
         }
         protected async Task HandleDeleteTask(TaskItem task)
@@ -68,12 +64,5 @@ namespace Taskify.Pages
                 await HandleCheckTask(task);
             });
         }
-        //private async Task HandleListId(TaskList list)
-        //{
-        //    await ListService.GetListId(list);
-
-
-        //}
-
     }
 }

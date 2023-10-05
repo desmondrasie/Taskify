@@ -43,10 +43,7 @@
             }
         </MudPaper>
         <MudTextField @bind-Value="newTask.Description" Label="Enter a new task" Variant="Variant.Outlined" Clearable="true" Style="margin-top: 10px; margin-bottom: 10px"></MudTextField>
-@*         <MudSelect HelperText="Helper text" T="string" Label="With Helper" Variant="Variant.Text">
-            <MudSelectItem Value="@("Tyrannosaur")" />
-            <MudSelectItem Value="@("Mike Rex")" />
-        </MudSelect> *@
+
         <MudButton OnClick="HandleCreateTask" Variant="Variant.Filled" Color="Color.Success" StartIcon="@Icons.Material.Rounded.AddCircleOutline">Add Task</MudButton>
     </MudItem>
 </MudGrid>
