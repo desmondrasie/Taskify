@@ -39,7 +39,7 @@
                                         <MudListItem>
                                             <MudGrid Justify="Justify.FlexStart">
                                                 <MudCheckBox Checked="@task.IsChecked" CheckedChanged="@CreateCheckCallback(task)" Color="Color.Primary" Style="margin-top: 21px" Dense="true"></MudCheckBox>
-                                                <MudTextField @bind-Value="@task.Description" OnBlur="@(() => HandleEditTask(task))" Clearable="true" Immediate="true"></MudTextField>
+                                                <MudTextField @bind-Value="@task.Description" OnBlur="@(() => HandleEditTask(task))" @onfocusin="@(() => StartEdit(task))" Clearable="false" Immediate="true"></MudTextField>
                                                 <MudItem xs="1" sm="1" md="1">
                                                     <MudFab Color="Color.Default" OnClick="@(() => HandleDeleteTask(task))" EndIcon="@Icons.Material.Rounded.Delete" Size="Size.Small"></MudFab>
                                                 </MudItem>

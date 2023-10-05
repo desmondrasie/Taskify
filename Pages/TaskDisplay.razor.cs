@@ -20,11 +20,17 @@ namespace Taskify.Pages
         [Parameter]
         public int ListId { get; set; }
         public TaskList CurrentList { get; set; } = null!;
+
+        private string originalDescription = null!;
         protected override async Task OnInitializedAsync()
         {
             CurrentList = await ListService.GetListById(ListId);
             tasks = (await TaskService.GetPendingTasks(CurrentList.Id)).ToList();
             
+        }
+        private void StartEdit(TaskItem task)
+        {
+            originalDescription = task.Description;
         }
 
         protected async Task HandleCreateTask()
@@ -49,6 +55,15 @@ namespace Taskify.Pages
         }
         protected async Task HandleEditTask(TaskItem task)
         {
+            if (string.IsNullOrWhiteSpace(task.Description))
+            {
+                //Snackbar.Add($"Task name cannot be blank.", Severity.Warning);
+                task.Description = originalDescription;  // Revert to original description
+                StateHasChanged();  // Request UI update
+                return;
+            }
+
+            // Continue with saving the task if the edited description is valid
             await TaskService.EditTask(task);
         }
         protected async Task HandleCheckTask(TaskItem task)

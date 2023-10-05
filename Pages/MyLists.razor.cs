@@ -85,6 +85,16 @@ namespace Taskify.Pages
 
         protected async Task HandleEditListName(TaskList list, string newName)
         {
+            if (masterList.Any(l => l.Name.Equals(newName, StringComparison.OrdinalIgnoreCase)) && !list.Name.Equals(newName, StringComparison.OrdinalIgnoreCase))
+            {
+                Snackbar.Add($"The list '{newName}' already exists. Please enter a different name.", Severity.Warning);
+                return;
+            }
+            else if (string.IsNullOrWhiteSpace(newName))
+            {
+                Snackbar.Add($"List name cannot be blank.", Severity.Warning);
+                return;
+            }
             list.Name = newName;
             await ListService.EditListName(list);
             masterList = (await ListService.GetAllLists()).ToList();

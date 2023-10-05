@@ -21,6 +21,9 @@ namespace Taskify.Pages
         public List<TaskItem> tasks { get; set; } = new List<TaskItem>();
         public bool HasTasks => tasks.Any();
         public bool HasLists => masterList.Any();
+
+        private string originalDescription = null!;
+        
         public ICollection<TaskList> masterList { get; set; } = new List<TaskList>();
         [Parameter]
         public int ListId { get; set; }
@@ -33,7 +36,10 @@ namespace Taskify.Pages
             //CurrentList = await ListService.GetListById(ListId);
         }
 
-
+        private void StartEdit(TaskItem task)
+        {
+            originalDescription = task.Description;
+        }
         private void HandleSelection()
         {
             if (listNameToId.TryGetValue(selectedListName, out var selectedId))
@@ -72,9 +78,20 @@ namespace Taskify.Pages
             }
         }
         protected async Task HandleEditTask(TaskItem task)
-        {           
+        {
+
+            if (string.IsNullOrWhiteSpace(task.Description))
+            {
+                //Snackbar.Add($"Task name cannot be blank.", Severity.Warning);
+                task.Description = originalDescription;  // Revert to original description
+                StateHasChanged();  // Request UI update
+                return;
+            }
+
+            // Continue with saving the task if the edited description is valid
             await TaskService.EditTask(task);
         }
+
         protected async Task HandleCheckTask(TaskItem task)
         {
             await TaskService.CheckTask(task);
