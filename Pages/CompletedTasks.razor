@@ -2,33 +2,25 @@
 
 <PageTitle>Completed Tasks</PageTitle>
 
-<MudText Align="Align.Center" Color="Color.Default" >
-    <h1>Completed Tasks</h1>
-</MudText>
-
 <MudGrid Justify="Justify.Center">
-    <MudItem sm="7">
-        <MudText Typo="Typo.h6" GutterBottom="true" Color="Color.Default"> Complete </MudText>
-        <MudGrid Justify="Justify.FlexEnd">
+    <MudItem sm="8">
+        <MudText Typo="Typo.h5" GutterBottom="false" Align="Align.Center" Style="margin-left: 10px; margin-top: 25px"> <b>Completed Tasks</b></MudText>
+        <MudGrid Justify="Justify.FlexEnd" Style="margin-top: 10px">
             <MudButton OnClick="HandleDeleteAll" Variant="Variant.Filled" Color="Color.Error" StartIcon="@Icons.Material.Rounded.DeleteSweep" Size="Size.Small" Style="margin-bottom: 25px; margin-right: 10px">Clear All</MudButton>
         </MudGrid>
         <MudPaper Width="100%" Elevation="3">
             @if (HasTasks)
             {
-                <MudList>
+                <MudStack>
                     @foreach (var task in Tasks)
                     {
-                        <MudListItem>
-                            <MudGrid Justify="Justify.FlexStart">
-                                <MudCheckBox Checked="@task.IsChecked" CheckedChanged="@CreateCheckCallback(task)" Color="Color.Primary" Style="margin-top: 21px" Dense="true"></MudCheckBox>
-                                <MudTextField @bind-Value="@task.Description" OnBlur="@(() => HandleEditTask(task))" Disabled="true"></MudTextField>
-                                <MudItem xs="1" sm="1" md="1">
-                                    <MudFab Color="Color.Default" OnClick="@(() => HandleDeleteTask(task))" EndIcon="@Icons.Material.Rounded.Delete" Size="Size.Small"></MudFab>
-                                </MudItem>
-                            </MudGrid>
-                        </MudListItem>
+                        <TaskChunkComplete
+                            Task="@task"
+                            OnDelete="HandleDeleteTask"
+                            OnCheck="(() => HandleCheckTask(task))">
+                        </TaskChunkComplete>
                     }
-                </MudList>
+                </MudStack>
             }
             else
             {
@@ -36,9 +28,6 @@
                     There are no completed tasks
                 </MudText>
             }
-
         </MudPaper>
-        
-         
     </MudItem>
 </MudGrid>

@@ -15,11 +15,11 @@ namespace Taskify.Pages
         public ISnackbar Snackbar { get; set; } = null!;
 
         private Dictionary<string, int> listNameToId = new();
-        private string selectedListName = null!;
+        private string selectedListName = "Default"; 
         public TaskItem NewTask { get; set; } = new TaskItem();
         public TaskList CurrentList { get; set; } = null!;
-        public List<TaskItem> PendingTasks { get; set; } = new List<TaskItem>();
-        public bool HasTasks => PendingTasks.Any();
+        public List<TaskItem> AllPendingTasks { get; set; } = new List<TaskItem>();
+        public bool HasTasks => AllPendingTasks.Any();
         public bool HasLists => MasterList.Any();
 
         private string originalDescription = null!;
@@ -30,7 +30,7 @@ namespace Taskify.Pages
         protected override async Task OnInitializedAsync()
         {            
             MasterList = (await ListService.GetAllLists()).ToList();
-            PendingTasks = (await TaskService.GetPendingTasks()).ToList();
+            AllPendingTasks = (await TaskService.GetPendingTasks()).ToList();
             listNameToId = MasterList.ToDictionary(list => list.Name, list => list.Id);
             //CurrentList = await ListService.GetListById(ListId);
         }
@@ -47,15 +47,15 @@ namespace Taskify.Pages
                 await TaskService.AddTask(NewTask,selectedListId);
                 //Snackbar.Add($"'{newTask.Description}' has been added to '{selectedListName}'.", Severity.Normal);
                 NewTask = new TaskItem();  // Reset for next entry
-                PendingTasks = (await TaskService.GetPendingTasks()).ToList();  // Refresh the list
+                AllPendingTasks = (await TaskService.GetPendingTasks()).ToList();  // Refresh the list
             }
             else if (string.IsNullOrWhiteSpace(NewTask.Description))
             {
-                Snackbar.Add($"Task description cannot be empty.", Severity.Error);
+                Snackbar.Add($"Task description cannot be empty.", Severity.Warning);
             }
             else
             {
-                Snackbar.Add($"Please select a valid list.", Severity.Error);
+                Snackbar.Add($"Please select a valid list.", Severity.Warning);
             }
             StateHasChanged();
         }
@@ -64,9 +64,9 @@ namespace Taskify.Pages
             if (task != null && task.Id != 0)
             {
                 await TaskService.DeleteTask(task.Id);
-                PendingTasks = (await TaskService.GetPendingTasks()).ToList();  // Refresh the list
+                AllPendingTasks = (await TaskService.GetPendingTasks()).ToList();  // Refresh the list
                 
-                Snackbar.Add($"'{task.Description}' has been deleted.", Severity.Error);
+                //Snackbar.Add($"'{task.Description}' has been deleted.", Severity.Error);
             }
         }
         protected async Task HandleEditTask(TaskItem task)
@@ -93,7 +93,7 @@ namespace Taskify.Pages
 
             if (task.IsChecked)
             {
-                PendingTasks.Remove(task);
+                AllPendingTasks.Remove(task);
                 Snackbar.Add($"'{task.Description}' has been completed! ", Severity.Success);
             }
             else

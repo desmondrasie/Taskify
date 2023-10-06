@@ -8,16 +8,18 @@ namespace Taskify.Pages
 {
     public partial class CompletedTasks : ComponentBase
     {
+
         [Inject]
         public ITaskService TaskService { get; set; } = null!;
         [Inject]
         public ISnackbar Snackbar { get; set; } = null!;
 
-
+        // VARIABLES //
         public TaskItem NewTask { get; set; } = new TaskItem();
         public List<TaskItem> Tasks { get; set; } = new List<TaskItem>();
-
         public bool HasTasks => Tasks.Any();
+
+        // METHODS //
         protected override async Task OnInitializedAsync()
         {
             Tasks = (await TaskService.GetCompletedTasks()).ToList();
@@ -41,13 +43,6 @@ namespace Taskify.Pages
             await TaskService.CheckTask(task);
             Tasks.Remove(task);
             Snackbar.Add($"'{task.Description}' has been added back to list. ", Severity.Info);
-        }
-        private EventCallback<bool> CreateCheckCallback(TaskItem task)
-        {
-            return EventCallback.Factory.Create<bool>(this, async isChecked =>
-            {
-                await HandleCheckTask(task);
-            });
         }
         protected async Task HandleDeleteAll()
         {

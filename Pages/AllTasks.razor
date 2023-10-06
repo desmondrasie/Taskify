@@ -33,18 +33,20 @@
                         else
                         {
                             <MudStack Spacing="2">
-                                @foreach (var task in PendingTasks)
+                                @foreach (var task in AllPendingTasks)
                                 {
+                                    if(task.TaskListId == list.Id)
+                                    {
                                     <TaskChunk Task="@task"
                                         OnDelete="HandleDeleteTask"
                                         OnEdit="HandleEditTask"
                                         OnStartEdit="StartEdit"
                                         OnCheck="(() => HandleCheckTask(task))">
                                     </TaskChunk>
+                                    }
                                 }
                             </MudStack>
                         }
-
                     }  
                 }
             }
