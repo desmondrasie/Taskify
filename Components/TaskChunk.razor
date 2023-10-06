@@ -2,38 +2,41 @@
     <MudGrid Justify="Justify.FlexStart">
         <MudItem sm="1">
             <MudCheckBox 
+                Style="margin-top: 20px; margin-left: 15px"
                 Checked="@Task.IsChecked"
                 CheckedChanged="@((bool isChecked) => OnCheck.InvokeAsync(isChecked))"
                 Color="Color.Primary" 
-                Style="margin-top: 21px" 
                 Dense="true">
             </MudCheckBox>
-
         </MudItem>
-        <MudItem sm="Width">
+        <MudItem sm="9">
             <MudTextField 
+                Style="margin-bottom: 10px"
                 @bind-Value="@Task.Description" 
                 OnBlur="@(() => OnEdit.InvokeAsync(Task))" 
                 @onfocusin="@(() => OnStartEdit.InvokeAsync(Task))" 
                 Clearable="false" 
                 Immediate="true">
             </MudTextField>
-        </MudItem>
-        <MudItem sm="2" Style="display: flex; justify-content: flex-end; margin-top: 10px">
+        </MudItem> 
+        <MudItem sm="1" Style="margin-top: 12px; margin-left: -10px">
             <MudTooltip>
                 <ChildContent>
-                    <MudIconButton Icon="@Icons.Material.Filled.LabelImportant" Color="Color.Primary" />
+                    <MudIconButton 
+                        Style="margin-inline-end"
+                        Icon="@Icons.Material.Filled.LabelImportant" 
+                        Color="Color.Primary" />
                 </ChildContent>
                 <TooltipContent>
                     <MudText> List Name </MudText>
                 </TooltipContent>
             </MudTooltip>
         </MudItem>
-        <MudItem sm="1" Style="margin-top: 10px">
+        <MudItem sm="1" Style="margin-top: 12px; margin-left: -10px">
             <MudFab 
-                Color="Color.Default" 
+                               Color="Color.Default" 
                 OnClick="@(() => OnDelete.InvokeAsync(Task))" 
-                EndIcon="@Icons.Material.Rounded.CatchingPokemon" 
+                EndIcon="@Icons.Material.Rounded.Delete" 
                 Size="Size.Small">
             </MudFab>
         </MudItem>

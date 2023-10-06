@@ -28,8 +28,7 @@ namespace Taskify.Pages
         [Parameter]
         public int ListId { get; set; }
         protected override async Task OnInitializedAsync()
-        {
-            
+        {            
             MasterList = (await ListService.GetAllLists()).ToList();
             PendingTasks = (await TaskService.GetPendingTasks()).ToList();
             listNameToId = MasterList.ToDictionary(list => list.Name, list => list.Id);
@@ -58,8 +57,8 @@ namespace Taskify.Pages
             {
                 Snackbar.Add($"Please select a valid list.", Severity.Error);
             }
+            StateHasChanged();
         }
-
         protected async Task HandleDeleteTask(TaskItem task)
         {
             if (task != null && task.Id != 0)
@@ -80,7 +79,6 @@ namespace Taskify.Pages
                 StateHasChanged();  // Request UI update
                 return;
             }
-
             // Continue with saving the task if the edited description is valid
             await TaskService.EditTask(task);
         }

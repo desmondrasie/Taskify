@@ -10,6 +10,5 @@ namespace Taskify.Components
         [Parameter] public EventCallback<TaskItem> OnEdit { get; set; }
         [Parameter] public EventCallback<TaskItem> OnStartEdit { get; set; }
         [Parameter] public EventCallback<bool> OnCheck { get; set; }
-        [Parameter] public int Width { get; set; }
     }
 }

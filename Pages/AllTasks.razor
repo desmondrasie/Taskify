@@ -2,57 +2,58 @@
 
 <PageTitle> All Tasks </PageTitle>
 
-@* <MudText Align="Align.Center">
-    <h1>Overview</h1>
-</MudText> *@
-
 <MudGrid Justify="Justify.Center">
     <MudItem sm="8" Style="margin-top: 20px">
-        @* <MudPaper Width="100%" Elevation="3" Style="margin-top: 10px"> *@
-            <MudGrid Justify="Justify.FlexStart">
-                <MudItem sm="8">
-                    <MudText Typo="Typo.h5" GutterBottom="false" Align="Align.Left" Style="margin-left: 10px"> <b>All Tasks</b></MudText>
+            <MudGrid Justify="Justify.Center">
+                <MudItem sm="12">
+                    <MudText Typo="Typo.h5" GutterBottom="false" Align="Align.Center" Style="margin-left: 10px"> <b>All Tasks</b></MudText>
                 </MudItem>
             </MudGrid>
-                @if (HasLists)
+            @if (HasLists)
+            {
+                foreach(var list in MasterList)
                 {
-                    @foreach(var list in MasterList)
+                    <MudText Typo="Typo.h6" GutterBottom="false" Align="Align.Left" Style="margin-left: 10px; margin-top: 25px"> <b>@list.Name</b></MudText>
+                
+
+                    @if (!HasTasks)
                     {
-                        @if (!HasTasks)
+                        <MudText Align="Align.Center" Typo="Typo.overline" Style="margin-left: 10px">
+                            This List Is Empty, Add Some Tasks!
+                        </MudText>
+                    }
+                    else
+                    {
+                        @if (list.Tasks.Count(t => !t.IsChecked) == 0)
                         {
-                            <MudText Align="Align.Center" Typo="Typo.overline" Style="margin-left: 10px">
+                            <MudText Style="margin-left: 10px" Align="Align.Center" Typo="Typo.overline">
                                 This List Is Empty, Add Some Tasks!
                             </MudText>
-                        }
+                    }
                         else
                         {
-
-
-                            <MudStack Spacing="5">
+                            <MudStack Spacing="2">
                                 @foreach (var task in PendingTasks)
                                 {
                                     <TaskChunk Task="@task"
-                                               Width="8"
-                                               OnDelete="HandleDeleteTask"
-                                               OnEdit="HandleEditTask"
-                                               OnStartEdit="StartEdit"
-                                               OnCheck="(() => HandleCheckTask(task))">
+                                        OnDelete="HandleDeleteTask"
+                                        OnEdit="HandleEditTask"
+                                        OnStartEdit="StartEdit"
+                                        OnCheck="(() => HandleCheckTask(task))">
                                     </TaskChunk>
-
                                 }
                             </MudStack>
-
                         }
-                    }
-                    
+
+                    }  
                 }
-                else
-                {
-                    <MudText Align="Align.Center" Typo="Typo.overline" Style="margin-left: 10px">
-                        No Lists Found. Create A List And Add Some Tasks!
-                    </MudText>
-                }
-            
+            }
+            else
+            {
+                <MudText Align="Align.Center" Typo="Typo.overline" Style="margin-left: 10px">
+                    No Lists Found. Create A List And Add Some Tasks!
+                </MudText>
+            }            
             <MudGrid Justify="Justify.Center">
                 <MudItem sm="9">
                     <MudTextField @bind-Value="NewTask.Description" Label="Enter a new task" Variant="Variant.Outlined" Clearable="true" Style="margin-top: 10px; margin-bottom: 10px"></MudTextField>
@@ -64,11 +65,8 @@
                             <MudSelectItem Value="@item.Name">@item.Name</MudSelectItem>
                         }
                     </MudSelect>
-
                 </MudItem>
-            </MudGrid>
-        
+            </MudGrid>        
             <MudButton OnClick="HandleCreateTask" Variant="Variant.Filled" Color="Color.Success" StartIcon="@Icons.Material.Rounded.AddCircleOutline">Add Task</MudButton>
-        @* </MudPaper> *@
     </MudItem>
 </MudGrid>

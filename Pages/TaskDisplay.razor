@@ -17,15 +17,14 @@
             <MudText Typo="Typo.h6" GutterBottom="true">@CurrentList.Name</MudText>
             //... rest of your component
         }
-        <MudPaper Width="100%" Elevation="3">
+        
             @if (HasTasks)
             {
-                <MudStack>
+                <MudStack Spacing="2">
                     @foreach (var task in PendingTasks)
                     {
                         <TaskChunk
                             Task="@task"
-                            Width="8"
                             OnDelete="HandleDeleteTask"
                             OnEdit="HandleEditTask"
                             OnStartEdit="StartEdit"
@@ -40,7 +39,7 @@
                     There are no pending tasks
                 </MudText>
             }
-        </MudPaper>
+       
         <MudTextField @bind-Value="NewTask.Description" Label="Enter a new task" Variant="Variant.Outlined" Clearable="true" Style="margin-top: 10px; margin-bottom: 10px"></MudTextField>
 
         <MudButton OnClick="HandleCreateTask" Variant="Variant.Filled" Color="Color.Success" StartIcon="@Icons.Material.Rounded.AddCircleOutline">Add Task</MudButton>
