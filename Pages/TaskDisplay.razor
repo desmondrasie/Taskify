@@ -7,7 +7,7 @@
 </MudText>
 
 <MudGrid Justify="Justify.Center">
-    <MudItem sm="7">
+    <MudItem sm="8">
         @if (CurrentList == null)
         {
             <p>Loading...</p>
@@ -20,20 +20,19 @@
         <MudPaper Width="100%" Elevation="3">
             @if (HasTasks)
             {
-                <MudList>
-                    @foreach (var task in tasks)
+                <MudStack>
+                    @foreach (var task in PendingTasks)
                     {
-                        <MudListItem>
-                            <MudGrid Justify="Justify.FlexStart">
-                                <MudCheckBox Checked="@task.IsChecked" CheckedChanged="@CreateCheckCallback(task)" Color="Color.Primary" Style="margin-top: 21px" Dense="true"></MudCheckBox>
-                                <MudTextField @bind-Value="@task.Description" OnBlur="@(() => HandleEditTask(task))" @onfocusin="@(() => StartEdit(task))" Clearable="false" Immediate="true"></MudTextField>
-                                <MudItem xs="1" sm="1" md="1">
-                                    <MudFab Color="Color.Default" OnClick="@(() => HandleDeleteTask(task))" EndIcon="@Icons.Material.Rounded.Delete" Size="Size.Small"></MudFab>
-                                </MudItem>
-                            </MudGrid>
-                        </MudListItem>
+                        <TaskChunk
+                            Task="@task"
+                            Width="8"
+                            OnDelete="HandleDeleteTask"
+                            OnEdit="HandleEditTask"
+                            OnStartEdit="StartEdit"
+                            OnCheck="(() => HandleCheckTask(task))">
+                        </TaskChunk>                        
                     }
-                </MudList>
+                </MudStack>
             }
             else
             {
@@ -42,7 +41,7 @@
                 </MudText>
             }
         </MudPaper>
-        <MudTextField @bind-Value="newTask.Description" Label="Enter a new task" Variant="Variant.Outlined" Clearable="true" Style="margin-top: 10px; margin-bottom: 10px"></MudTextField>
+        <MudTextField @bind-Value="NewTask.Description" Label="Enter a new task" Variant="Variant.Outlined" Clearable="true" Style="margin-top: 10px; margin-bottom: 10px"></MudTextField>
 
         <MudButton OnClick="HandleCreateTask" Variant="Variant.Filled" Color="Color.Success" StartIcon="@Icons.Material.Rounded.AddCircleOutline">Add Task</MudButton>
     </MudItem>

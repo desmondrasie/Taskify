@@ -14,13 +14,13 @@ namespace Taskify.Pages
         public ISnackbar Snackbar { get; set; } = null!;
 
 
-        public TaskItem newTask { get; set; } = new TaskItem();
-        public List<TaskItem> tasks { get; set; } = new List<TaskItem>();
+        public TaskItem NewTask { get; set; } = new TaskItem();
+        public List<TaskItem> Tasks { get; set; } = new List<TaskItem>();
 
-        public bool HasTasks => tasks.Any();
+        public bool HasTasks => Tasks.Any();
         protected override async Task OnInitializedAsync()
         {
-            tasks = (await TaskService.GetCompletedTasks()).ToList();
+            Tasks = (await TaskService.GetCompletedTasks()).ToList();
         }
 
         protected async Task HandleDeleteTask(TaskItem task)
@@ -28,7 +28,7 @@ namespace Taskify.Pages
             if (task != null && task.Id != 0)
             {
                 await TaskService.DeleteTask(task.Id);
-                tasks = (await TaskService.GetCompletedTasks()).ToList();  // Refresh the list
+                Tasks = (await TaskService.GetCompletedTasks()).ToList();  // Refresh the list
                 Snackbar.Add($"'{task.Description}' has been deleted.", Severity.Error);
             }
         }
@@ -39,7 +39,7 @@ namespace Taskify.Pages
         protected async Task HandleCheckTask(TaskItem task)
         {
             await TaskService.CheckTask(task);
-            tasks.Remove(task);
+            Tasks.Remove(task);
             Snackbar.Add($"'{task.Description}' has been added back to list. ", Severity.Info);
         }
         private EventCallback<bool> CreateCheckCallback(TaskItem task)
@@ -51,11 +51,11 @@ namespace Taskify.Pages
         }
         protected async Task HandleDeleteAll()
         {
-            foreach (var task in tasks)
+            foreach (var task in Tasks)
             {
                 await TaskService.DeleteTask(task.Id);
             }
-            tasks = (await TaskService.GetCompletedTasks()).ToList();
+            Tasks = (await TaskService.GetCompletedTasks()).ToList();
             Snackbar.Add("All completed tasks have been cleared.", Severity.Error);
         }
 

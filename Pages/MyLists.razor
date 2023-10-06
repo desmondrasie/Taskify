@@ -18,7 +18,7 @@
             @if (HasLists)
             {
                 <MudList>
-                    @foreach (var list in masterList)
+                    @foreach (var list in MasterList)
                     {
                         <MudDivider Style="margin-bottom: 15px" />
                         <MudGrid Justify="Justify.Center">
@@ -59,7 +59,7 @@
         <MudPaper Width="100%" Elevation="3" Square="false" Style="margin-top: 10px">
             <MudGrid Justify="Justify.Center">
                 <MudItem sm="9">
-                    <MudTextField @bind-Value="newList.Name" Label="Enter a new List" Variant="Variant.Outlined" Clearable="true" Style="margin-top: 10px; margin-bottom: 10px"></MudTextField>
+                    <MudTextField @bind-Value="NewList.Name" Label="Enter a new List" Variant="Variant.Outlined" Clearable="true" Style="margin-top: 10px; margin-bottom: 10px"></MudTextField>
                 </MudItem>
                 <MudItem sm="2" Style="margin-top: 25px">
                     <MudButton OnClick="HandleCreateList" Variant="Variant.Filled" Color="Color.Success"  StartIcon="@Icons.Material.Rounded.AddCircleOutline">Create</MudButton>

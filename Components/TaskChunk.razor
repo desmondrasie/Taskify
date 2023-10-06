@@ -10,7 +10,7 @@
             </MudCheckBox>
 
         </MudItem>
-        <MudItem sm="8">
+        <MudItem sm="Width">
             <MudTextField 
                 @bind-Value="@Task.Description" 
                 OnBlur="@(() => OnEdit.InvokeAsync(Task))" 
@@ -33,7 +33,7 @@
             <MudFab 
                 Color="Color.Default" 
                 OnClick="@(() => OnDelete.InvokeAsync(Task))" 
-                EndIcon="@Icons.Material.Rounded.Delete" 
+                EndIcon="@Icons.Material.Rounded.CatchingPokemon" 
                 Size="Size.Small">
             </MudFab>
         </MudItem>

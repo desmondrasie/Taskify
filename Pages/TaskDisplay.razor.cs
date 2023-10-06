@@ -14,9 +14,9 @@ namespace Taskify.Pages
         [Inject]
         public ISnackbar Snackbar { get; set; } = null!;
 
-        public TaskItem newTask { get; set; } = new TaskItem();
-        public List<TaskItem> tasks { get; set; } = new List<TaskItem>();
-        public bool HasTasks => tasks.Any();
+        public TaskItem NewTask { get; set; } = new TaskItem();
+        public List<TaskItem> PendingTasks { get; set; } = new List<TaskItem>();
+        public bool HasTasks => PendingTasks.Any();
         [Parameter]
         public int ListId { get; set; }
         public TaskList CurrentList { get; set; } = null!;
@@ -25,7 +25,7 @@ namespace Taskify.Pages
         protected override async Task OnInitializedAsync()
         {
             CurrentList = await ListService.GetListById(ListId);
-            tasks = (await TaskService.GetPendingTasks(CurrentList.Id)).ToList();
+            PendingTasks = (await TaskService.GetPendingTasks(CurrentList.Id)).ToList();
             
         }
         private void StartEdit(TaskItem task)
@@ -35,12 +35,12 @@ namespace Taskify.Pages
 
         protected async Task HandleCreateTask()
         {
-            if (!string.IsNullOrWhiteSpace(newTask.Description))
+            if (!string.IsNullOrWhiteSpace(NewTask.Description))
             {
-                await TaskService.AddTask(newTask,CurrentList.Id);
+                await TaskService.AddTask(NewTask,CurrentList.Id);
                 //Snackbar.Add($"'{newTask.Description}' has been added.", Severity.Normal);
-                newTask = new TaskItem();  // Reset for next entry
-                tasks = (await TaskService.GetPendingTasks(CurrentList.Id)).ToList();  // Refresh the list
+                NewTask = new TaskItem();  // Reset for next entry
+                PendingTasks = (await TaskService.GetPendingTasks(CurrentList.Id)).ToList();  // Refresh the list
             }
         }
         protected async Task HandleDeleteTask(TaskItem task)
@@ -48,7 +48,7 @@ namespace Taskify.Pages
             if (task != null && task.Id != 0)
             {
                 await TaskService.DeleteTask(task.Id);
-                tasks = (await TaskService.GetPendingTasks(CurrentList.Id)).ToList();  // Refresh the list
+                PendingTasks = (await TaskService.GetPendingTasks(CurrentList.Id)).ToList();  // Refresh the list
 
                 Snackbar.Add($"'{task.Description}' has been deleted.", Severity.Error);
             }
@@ -69,15 +69,8 @@ namespace Taskify.Pages
         protected async Task HandleCheckTask(TaskItem task)
         {
             await TaskService.CheckTask(task);
-            tasks.Remove(task);
+            PendingTasks.Remove(task);
             Snackbar.Add($"'{task.Description}' has been completed! ", Severity.Success);
-        }
-        private EventCallback<bool> CreateCheckCallback(TaskItem task)
-        {
-            return EventCallback.Factory.Create<bool>(this, async isChecked =>
-            {
-                await HandleCheckTask(task);
-            });
         }
     }
 }

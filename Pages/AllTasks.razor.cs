@@ -14,25 +14,25 @@ namespace Taskify.Pages
         [Inject]
         public ISnackbar Snackbar { get; set; } = null!;
 
-        private Dictionary<string, int> listNameToId = new Dictionary<string, int>();
+        private Dictionary<string, int> listNameToId = new();
         private string selectedListName = null!;
-        public TaskItem newTask { get; set; } = new TaskItem();
+        public TaskItem NewTask { get; set; } = new TaskItem();
         public TaskList CurrentList { get; set; } = null!;
-        public List<TaskItem> tasks { get; set; } = new List<TaskItem>();
-        public bool HasTasks => tasks.Any();
-        public bool HasLists => masterList.Any();
+        public List<TaskItem> PendingTasks { get; set; } = new List<TaskItem>();
+        public bool HasTasks => PendingTasks.Any();
+        public bool HasLists => MasterList.Any();
 
         private string originalDescription = null!;
         
-        public ICollection<TaskList> masterList { get; set; } = new List<TaskList>();
+        public ICollection<TaskList> MasterList { get; set; } = new List<TaskList>();
         [Parameter]
         public int ListId { get; set; }
         protected override async Task OnInitializedAsync()
         {
             
-            masterList = (await ListService.GetAllLists()).ToList();
-            tasks = (await TaskService.GetPendingTasks()).ToList();
-            listNameToId = masterList.ToDictionary(list => list.Name, list => list.Id);
+            MasterList = (await ListService.GetAllLists()).ToList();
+            PendingTasks = (await TaskService.GetPendingTasks()).ToList();
+            listNameToId = MasterList.ToDictionary(list => list.Name, list => list.Id);
             //CurrentList = await ListService.GetListById(ListId);
         }
 
@@ -42,15 +42,15 @@ namespace Taskify.Pages
         }
         protected async Task HandleCreateTask()
         {
-            if (!string.IsNullOrWhiteSpace(newTask.Description) && listNameToId.TryGetValue(selectedListName, out var selectedListId))
+            if (!string.IsNullOrWhiteSpace(NewTask.Description) && listNameToId.TryGetValue(selectedListName, out var selectedListId))
             {
                 
-                await TaskService.AddTask(newTask,selectedListId);
+                await TaskService.AddTask(NewTask,selectedListId);
                 //Snackbar.Add($"'{newTask.Description}' has been added to '{selectedListName}'.", Severity.Normal);
-                newTask = new TaskItem();  // Reset for next entry
-                tasks = (await TaskService.GetPendingTasks()).ToList();  // Refresh the list
+                NewTask = new TaskItem();  // Reset for next entry
+                PendingTasks = (await TaskService.GetPendingTasks()).ToList();  // Refresh the list
             }
-            else if (string.IsNullOrWhiteSpace(newTask.Description))
+            else if (string.IsNullOrWhiteSpace(NewTask.Description))
             {
                 Snackbar.Add($"Task description cannot be empty.", Severity.Error);
             }
@@ -65,7 +65,7 @@ namespace Taskify.Pages
             if (task != null && task.Id != 0)
             {
                 await TaskService.DeleteTask(task.Id);
-                tasks = (await TaskService.GetPendingTasks()).ToList();  // Refresh the list
+                PendingTasks = (await TaskService.GetPendingTasks()).ToList();  // Refresh the list
                 
                 Snackbar.Add($"'{task.Description}' has been deleted.", Severity.Error);
             }
@@ -95,7 +95,7 @@ namespace Taskify.Pages
 
             if (task.IsChecked)
             {
-                tasks.Remove(task);
+                PendingTasks.Remove(task);
                 Snackbar.Add($"'{task.Description}' has been completed! ", Severity.Success);
             }
             else
@@ -104,16 +104,6 @@ namespace Taskify.Pages
                 Snackbar.Add($"'{task.Description}' has been uncompleted! ", Severity.Info);
             }
             StateHasChanged();
-        }
-
-        // Remove the CreateCheckCallback method since it is not needed in this approach
-
-        private EventCallback<bool> CreateCheckCallback(TaskItem task)
-        {
-            return EventCallback.Factory.Create<bool>(this,async isChecked =>
-            {
-                await HandleCheckTask(task);
-            });
         }
 
     }

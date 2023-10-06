@@ -16,29 +16,35 @@
             </MudGrid>
                 @if (HasLists)
                 {
-                    
-                    @if (!HasTasks) 
+                    @foreach(var list in MasterList)
                     {
-                        <MudText Align="Align.Center" Typo="Typo.overline" Style="margin-left: 10px">
-                            This List Is Empty, Add Some Tasks!
-                    </MudText>
-                    }
-                    else
-                    {   
-                        <MudStack Spacing="5"> 
-                        @foreach (var task in tasks)
+                        @if (!HasTasks)
                         {
-                        <TaskChunk Task="@task"
-                                   OnDelete="HandleDeleteTask"
-                                   OnEdit="HandleEditTask"
-                                   OnStartEdit="StartEdit"
-                                   OnCheck="(() => HandleCheckTask(task))">
-                        </TaskChunk>
+                            <MudText Align="Align.Center" Typo="Typo.overline" Style="margin-left: 10px">
+                                This List Is Empty, Add Some Tasks!
+                            </MudText>
+                        }
+                        else
+                        {
 
+
+                            <MudStack Spacing="5">
+                                @foreach (var task in PendingTasks)
+                                {
+                                    <TaskChunk Task="@task"
+                                               Width="8"
+                                               OnDelete="HandleDeleteTask"
+                                               OnEdit="HandleEditTask"
+                                               OnStartEdit="StartEdit"
+                                               OnCheck="(() => HandleCheckTask(task))">
+                                    </TaskChunk>
+
+                                }
+                            </MudStack>
+
+                        }
                     }
-                        </MudStack>
                     
-                    }
                 }
                 else
                 {
@@ -49,11 +55,11 @@
             
             <MudGrid Justify="Justify.Center">
                 <MudItem sm="9">
-                    <MudTextField @bind-Value="newTask.Description" Label="Enter a new task" Variant="Variant.Outlined" Clearable="true" Style="margin-top: 10px; margin-bottom: 10px"></MudTextField>
+                    <MudTextField @bind-Value="NewTask.Description" Label="Enter a new task" Variant="Variant.Outlined" Clearable="true" Style="margin-top: 10px; margin-bottom: 10px"></MudTextField>
                 </MudItem>
                 <MudItem sm="3">
                     <MudSelect T="string" Label="Select List" Variant="Variant.Text" @bind-Value="selectedListName" AnchorOrigin="Origin.CenterRight" TransformOrigin="Origin.CenterLeft">
-                        @foreach (var item in masterList)
+                        @foreach (var item in MasterList)
                         {
                             <MudSelectItem Value="@item.Name">@item.Name</MudSelectItem>
                         }

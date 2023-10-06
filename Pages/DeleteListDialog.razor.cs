@@ -6,7 +6,7 @@ namespace Taskify.Pages
     public partial class DeleteListDialog
     {
         [CascadingParameter] MudDialogInstance MudDialog { get; set; } = null!;
-        [Parameter] public string listName { get; set; } = null!;
+        [Parameter] public string ListName { get; set; } = null!;
 
         private void Cancel() => MudDialog.Cancel();
         private void Delete() => MudDialog.Close(DialogResult.Ok("true"));
