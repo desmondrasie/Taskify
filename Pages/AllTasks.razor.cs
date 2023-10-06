@@ -85,14 +85,29 @@ namespace Taskify.Pages
             await TaskService.EditTask(task);
         }
 
+        // The rest of your code remains the same
+
         protected async Task HandleCheckTask(TaskItem task)
         {
-            await TaskService.CheckTask(task);
-            tasks.Remove(task);
-            
-            Snackbar.Add($"'{task.Description}' has been completed! ", Severity.Success);
+            if (task == null || task.Id == 0) return;
+
+            await TaskService.CheckTask(task); // Assume this updates the task in the backend
+
+            if (task.IsChecked)
+            {
+                tasks.Remove(task);
+                Snackbar.Add($"'{task.Description}' has been completed! ", Severity.Success);
+            }
+            else
+            {
+                // Handle uncheck behavior, possibly adding it back to the list, etc.
+                Snackbar.Add($"'{task.Description}' has been uncompleted! ", Severity.Info);
+            }
             StateHasChanged();
         }
+
+        // Remove the CreateCheckCallback method since it is not needed in this approach
+
         private EventCallback<bool> CreateCheckCallback(TaskItem task)
         {
             return EventCallback.Factory.Create<bool>(this,async isChecked =>

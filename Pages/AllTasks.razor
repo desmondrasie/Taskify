@@ -8,7 +8,7 @@
 
 <MudGrid Justify="Justify.Center">
     <MudItem sm="8" Style="margin-top: 20px">
-        <MudPaper Width="100%" Elevation="3" Style="margin-top: 10px">
+        @* <MudPaper Width="100%" Elevation="3" Style="margin-top: 10px"> *@
             <MudGrid Justify="Justify.FlexStart">
                 <MudItem sm="8">
                     <MudText Typo="Typo.h5" GutterBottom="false" Align="Align.Left" Style="margin-left: 10px"> <b>All Tasks</b></MudText>
@@ -16,7 +16,7 @@
             </MudGrid>
                 @if (HasLists)
                 {
-                    <MudList>
+                    
                     @if (!HasTasks) 
                     {
                         <MudText Align="Align.Center" Typo="Typo.overline" Style="margin-left: 10px">
@@ -24,44 +24,21 @@
                     </MudText>
                     }
                     else
-                    {
+                    {   
+                        <MudStack Spacing="5"> 
                         @foreach (var task in tasks)
                         {
-                                    
-                            <MudPaper Width = "100%" Elevation = "2" Style="margin-bottom: 2px">
-                                <MudListItem>
-                                    <MudGrid Justify="Justify.FlexStart">
-                                        <MudItem sm="1">
-                                            <MudCheckBox Checked="@task.IsChecked" CheckedChanged="@CreateCheckCallback(task)" Color="Color.Primary" Style="margin-top: 21px" Dense="true"></MudCheckBox>
-                                        </MudItem>
-                                        <MudItem sm="8">
-                                        <MudTextField @bind-Value="@task.Description" OnBlur="@(() => HandleEditTask(task))" @onfocusin="@(() => StartEdit(task))" Clearable="false" Immediate="true"></MudTextField>
-                                        </MudItem>
-                                        <MudItem sm="2" Style="display: flex; justify-content: flex-end; margin-top: 10px">
+                        <TaskChunk Task="@task"
+                                   OnDelete="HandleDeleteTask"
+                                   OnEdit="HandleEditTask"
+                                   OnStartEdit="StartEdit"
+                                   OnCheck="(() => HandleCheckTask(task))">
+                        </TaskChunk>
 
-                                        <MudTooltip>
-                                            <ChildContent>
-                                                <MudIconButton Icon="@Icons.Material.Filled.LabelImportant" Color="Color.Primary" />
-                                            </ChildContent>
-                                            <TooltipContent>
-                                                <MudText> List Name </MudText>                                                        
-                                            </TooltipContent>
-                                        </MudTooltip>
-
-                                        </MudItem>
-                                        <MudItem sm="1" Style="margin-top: 10px">
-                                            <MudFab Color="Color.Default" OnClick="@(() => HandleDeleteTask(task))" EndIcon="@Icons.Material.Rounded.Delete" Size="Size.Small"></MudFab>
-                                        </MudItem>
-                                    </MudGrid>
-                                </MudListItem>
-                            </MudPaper>
-                                 
-
-                        }
-                        
-                        
                     }
-                    </MudList>
+                        </MudStack>
+                    
+                    }
                 }
                 else
                 {
@@ -86,6 +63,6 @@
             </MudGrid>
         
             <MudButton OnClick="HandleCreateTask" Variant="Variant.Filled" Color="Color.Success" StartIcon="@Icons.Material.Rounded.AddCircleOutline">Add Task</MudButton>
-        </MudPaper>
+        @* </MudPaper> *@
     </MudItem>
 </MudGrid>
