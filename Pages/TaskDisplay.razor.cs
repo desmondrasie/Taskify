@@ -50,7 +50,7 @@ namespace Taskify.Pages
                 await TaskService.DeleteTask(task.Id);
                 PendingTasks = (await TaskService.GetPendingTasks(CurrentList.Id)).ToList();  // Refresh the list
 
-                Snackbar.Add($"'{task.Description}' has been deleted.", Severity.Error);
+                //Snackbar.Add($"'{task.Description}' has been deleted.", Severity.Error);
             }
         }
         protected async Task HandleEditTask(TaskItem task)

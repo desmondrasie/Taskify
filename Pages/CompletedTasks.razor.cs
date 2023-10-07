@@ -31,7 +31,7 @@ namespace Taskify.Pages
             {
                 await TaskService.DeleteTask(task.Id);
                 Tasks = (await TaskService.GetCompletedTasks()).ToList();  // Refresh the list
-                Snackbar.Add($"'{task.Description}' has been deleted.", Severity.Error);
+                //Snackbar.Add($"'{task.Description}' has been deleted.", Severity.Error);
             }
         }
         protected async Task HandleEditTask(TaskItem task)
@@ -42,7 +42,7 @@ namespace Taskify.Pages
         {
             await TaskService.CheckTask(task);
             Tasks.Remove(task);
-            Snackbar.Add($"'{task.Description}' has been added back to list. ", Severity.Info);
+            Snackbar.Add($"'{task.Description}' has been added back to list ", Severity.Info);
         }
         protected async Task HandleDeleteAll()
         {
