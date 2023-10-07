@@ -8,7 +8,7 @@
         <MudGrid Justify="Justify.FlexEnd" Style="margin-top: 10px">
             <MudButton OnClick="HandleDeleteAll" Variant="Variant.Filled" Color="Color.Error" StartIcon="@Icons.Material.Rounded.DeleteSweep" Size="Size.Small" Style="margin-bottom: 25px; margin-right: 10px">Clear All</MudButton>
         </MudGrid>
-        <MudPaper Width="100%" Elevation="3">
+        
             @if (HasTasks)
             {
                 <MudStack>
@@ -28,6 +28,6 @@
                     There are no completed tasks
                 </MudText>
             }
-        </MudPaper>
+       
     </MudItem>
 </MudGrid>

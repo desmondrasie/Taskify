@@ -58,9 +58,22 @@
             }            
             <MudGrid Justify="Justify.Center">
                 <MudItem sm="9">
-                    <MudTextField @bind-Value="NewTask.Description" Label="Enter a new task" Variant="Variant.Outlined" Clearable="true" Style="margin-top: 10px; margin-bottom: 10px"></MudTextField>
+                    
                 </MudItem>
-                <MudItem sm="3">
+                
+            </MudGrid>   
+            
+    </MudItem>
+</MudGrid>
+
+<MudGrid Justify="Justify.Center">
+    <MudItem sm="8">
+        <MudPaper Width="100%" Elevation="3" Square="false" Style="margin-top: 10px">
+            <MudGrid Justify="Justify.Center">
+                <MudItem sm="9">
+                    <MudTextField @bind-Value="NewTask.Description" Label="Enter a new task" Variant="Variant.Outlined" Clearable="true" Style="margin-top: 10px; margin-bottom: 10px"></MudTextField>              
+                </MudItem>
+                <MudItem sm="2">
                     <MudSelect T="string" Label="Select List" Variant="Variant.Text" @bind-Value="selectedListName" AnchorOrigin="Origin.CenterRight" TransformOrigin="Origin.CenterLeft">
                         @foreach (var item in MasterList)
                         {
@@ -68,7 +81,10 @@
                         }
                     </MudSelect>
                 </MudItem>
-            </MudGrid>        
-            <MudButton OnClick="HandleCreateTask" Variant="Variant.Filled" Color="Color.Success" StartIcon="@Icons.Material.Rounded.AddCircleOutline">Add Task</MudButton>
+            </MudGrid>
+            <MudGrid Justify="Justify.FlexEnd">
+                <MudButton OnClick="HandleCreateTask" Variant="Variant.Filled" Color="Color.Success" StartIcon="@Icons.Material.Rounded.AddCircleOutline">Add Task</MudButton>
+            </MudGrid>
+        </MudPaper>
     </MudItem>
 </MudGrid>
