@@ -62,5 +62,10 @@ namespace Taskify.Services
             await _context.SaveChangesAsync();
 
         }
+        public async Task EditDueDate(TaskItem task)
+        {
+            _context.Entry(task).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+        }
     }
 }

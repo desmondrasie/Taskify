@@ -92,7 +92,7 @@ namespace Taskify.Pages
             }
             else if (string.IsNullOrWhiteSpace(newName))
             {
-                Snackbar.Add($"List name cannot be blank.", Severity.Warning);
+                //Snackbar.Add($"List name cannot be blank.", Severity.Warning);
                 return;
             }
             list.Name = newName;

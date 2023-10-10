@@ -10,11 +10,6 @@ public class MyDbContext : DbContext
 
     public DbSet<TaskItem> TaskItem { get; set; }
     public DbSet<TaskList> TaskList { get; set; }
-    //protected override void OnModelCreating(ModelBuilder modelBuilder)
-    //{
-    //    modelBuilder.Entity<TaskItem>()
-    //        .HasOne(ti => ti.TaskList)
-    //        .WithMany(tl => tl.Tasks)
-    //        .HasForeignKey(ti => ti.TaskListId);
-    //}
+    public DbSet<TaskDueDetails> TaskDueDetails { get; set; }
+
 }

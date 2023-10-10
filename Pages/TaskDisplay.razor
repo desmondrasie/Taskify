@@ -40,8 +40,30 @@
                 </MudText>
             }
        
-        <MudTextField @bind-Value="NewTask.Description" Label="Enter a new task" Variant="Variant.Outlined" Clearable="true" Style="margin-top: 10px; margin-bottom: 10px"></MudTextField>
+    </MudItem>
+</MudGrid>
 
-        <MudButton OnClick="HandleCreateTask" Variant="Variant.Filled" Color="Color.Success" StartIcon="@Icons.Material.Rounded.AddCircleOutline">Add Task</MudButton>
+<MudGrid Justify="Justify.Center">
+    <MudItem md="8" xl="6">
+        <MudPaper Width="100%" Elevation="3" Square="false" Style="margin-top: 10px; margin-bottom: 50px">
+            <MudGrid Justify="Justify.Center">
+                <MudItem md="8">
+                    <MudTextField @bind-Value="NewTask.Description" Label="Enter a new task" Variant="Variant.Outlined" Clearable="true" Style="margin-top: 10px; margin-bottom: 10px"></MudTextField>
+                </MudItem>
+               @*  <MudItem md="3">
+                    <MudDatePicker Label="Due Date" DisableToolbar="true" @bind-Date=NewTask.TaskDueDetails.DueDate />
+                </MudItem>
+                <MudItem md="3">
+                    <MudTimePicker Label="12 hours" AmPm="true" @bind-Time=NewTask.TaskDueDetails.DueTime />
+                </MudItem> *@
+            </MudGrid>
+            <MudGrid Justify="Justify.Center">
+                <MudItem md="9">
+                </MudItem>
+                <MudItem md="3">
+                    <MudButton OnClick="HandleCreateTask" Style="margin-top:-10px" Variant=" Variant.Filled" Color="Color.Success" Size=Size.Small StartIcon="@Icons.Material.Rounded.AddCircleOutline">Add Task</MudButton>
+                </MudItem>
+            </MudGrid>
+        </MudPaper>
     </MudItem>
 </MudGrid>

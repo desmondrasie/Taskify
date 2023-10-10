@@ -5,7 +5,7 @@
 namespace Taskify.Migrations
 {
     /// <inheritdoc />
-    public partial class General : Migration
+    public partial class PleaseWork4 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

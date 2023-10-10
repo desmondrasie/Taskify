@@ -62,7 +62,6 @@ namespace Taskify.Pages
                 StateHasChanged();  // Request UI update
                 return;
             }
-
             // Continue with saving the task if the edited description is valid
             await TaskService.EditTask(task);
         }
@@ -71,6 +70,10 @@ namespace Taskify.Pages
             await TaskService.CheckTask(task);
             PendingTasks.Remove(task);
             Snackbar.Add($"'{task.Description}' has been completed! ", Severity.Success);
+        }
+        protected async Task HandleEditDueDate(TaskItem task)
+        {
+            await TaskService.EditDueDate(task);
         }
     }
 }

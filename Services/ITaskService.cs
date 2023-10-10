@@ -15,5 +15,6 @@ public interface ITaskService
     Task EditTask(TaskItem task);
     Task DeleteTask(int id);
     Task CheckTask(TaskItem task);
+    Task EditDueDate(TaskItem task);
     
 }

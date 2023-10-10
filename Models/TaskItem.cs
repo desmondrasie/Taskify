@@ -9,7 +9,10 @@ namespace Taskify.Models
         public int Id { get; set; }
         public string Description { get; set; } = null!;
         public bool IsChecked { get; set; } = false;
+        public TaskList TaskList { get; set; } = null!;
         public int TaskListId { get; set; }
-        public TaskList TaskList { get;  set; } = null!;
+        public TaskDueDetails? DueDetails { get; set; }
+
+
     }
 }   
