@@ -6,22 +6,21 @@
     <MudItem sm="8" xl="6" Style="margin-top: 20px">
             <MudGrid Justify="Justify.Center">
                 <MudItem sm="12">
-                    <MudText Typo="Typo.h5" GutterBottom="false" Align="Align.Center" Style="margin-left: 10px"> <b>All Tasks</b></MudText>
+                    <MudText Typo="Typo.h5" GutterBottom="false" Align="Align.Center"> <b>All Tasks</b></MudText>
                 </MudItem>
             </MudGrid>
             @if (HasLists)
             {
                 foreach(var list in MasterList)
                 {
-                    <MudText Typo="Typo.h6" GutterBottom="false" Align="Align.Left" Style="margin-left: 10px; margin-top: 25px"> <b>@list.Name</b></MudText>
-                
+                    <MudText Typo="Typo.h6" GutterBottom="false" Align="Align.Left" Style="margin-left: 10px; margin-top: 25px"> <b>@list.Name</b></MudText>                
 
                     @if (!HasTasks)
                     {
                         <MudText Align="Align.Center" Typo="Typo.overline" Style="margin-left: 10px">
                             This List Is Empty, Add Some Tasks!
                         </MudText>
-                    }
+                    } 
                     else
                     {
                         @if (list.Tasks.Count(t => !t.IsChecked) == 0)
@@ -56,13 +55,10 @@
                     No Lists Found. Create A List And Add Some Tasks!
                 </MudText>
             }            
-            <MudGrid Justify="Justify.Center">
-                <MudItem sm="9">
-                    
-                </MudItem>
-                
-            </MudGrid>   
-            
+
+            <MudGrid Justify="Justify.FlexEnd">
+                <MudLink Href="/my-lists" Style="margin-right: 10px; margin-top: 50px; margin-bottom: 10px">Create A List</MudLink>
+            </MudGrid>
     </MudItem>
 </MudGrid>
 
