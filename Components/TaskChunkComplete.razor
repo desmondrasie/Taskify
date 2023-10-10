@@ -13,7 +13,7 @@
                         @bind-Value="@Task.Description"
                         OnBlur="@(() => OnEdit.InvokeAsync(Task))"
                         @onfocusin="@(() => OnStartEdit.InvokeAsync(Task))"
-                        Variant="Variant.Outlined"
+                        Variant="Variant.Text"
                         Clearable="false"
                         Disabled="true"
                         Immediate="true">

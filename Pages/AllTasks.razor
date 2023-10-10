@@ -82,8 +82,13 @@
                     </MudSelect>
                 </MudItem>
             </MudGrid>
-            <MudGrid Justify="Justify.FlexEnd">
-                <MudButton OnClick="HandleCreateTask" Variant="Variant.Filled" Color="Color.Success" StartIcon="@Icons.Material.Rounded.AddCircleOutline">Add Task</MudButton>
+            <MudGrid  Justify="Justify.Center" >
+                <MudItem md="9">
+
+                </MudItem>
+                <MudItem md="2">
+                    <MudButton OnClick="HandleCreateTask" Style="margin-top: -10px; margin-right: -15px" Variant="Variant.Filled" Color="Color.Success" Size=Size.Small StartIcon="@Icons.Material.Rounded.AddCircleOutline">Add Task</MudButton>
+                </MudItem>
             </MudGrid>
         </MudPaper>
     </MudItem>
