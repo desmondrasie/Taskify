@@ -59,16 +59,21 @@
                 <MudItem md="3">
                     <MudDatePicker Label="Due Date" DisableToolbar="true" @bind-Date=NewTask.DueDetails.DueDate />
                 </MudItem>
-                <MudItem md="3">
-                    <MudTimePicker Label="12 hours" AmPm="true" @bind-Time=NewTask.DueDetails.DueTime />
-                </MudItem>
+                <MudGrid Justify="Justify.Center">
+                    <MudItem md="9">
+                    </MudItem>
+                    <MudItem md="3" Style="margin-left: -80px; margin-top: -40px">
+                        <MudTimePicker Label="Due Time" AmPm="true" @bind-Time=NewTask.DueDetails.DueTime />
+                    </MudItem>
+                </MudGrid>
+              
                 
             </MudGrid>
             <MudGrid Justify="Justify.Center">
-                <MudItem md="9">
+                <MudItem md="12">
                 </MudItem>
                 <MudItem md="3">
-                    <MudButton OnClick="HandleCreateTask" Style="margin-top:-10px" Variant=" Variant.Filled" Color="Color.Success" Size=Size.Small StartIcon="@Icons.Material.Rounded.AddCircleOutline">Add Task</MudButton>
+                    <MudButton OnClick="HandleCreateTask" Style="margin-top:-50px" Variant=" Variant.Filled" Color="Color.Success" Size=Size.Medium StartIcon="@Icons.Material.Rounded.AddCircleOutline">Add Task</MudButton>
                 </MudItem>
             </MudGrid>
         </MudPaper>
