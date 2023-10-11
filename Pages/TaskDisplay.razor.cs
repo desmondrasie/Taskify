@@ -2,6 +2,7 @@
 using Taskify.Services;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
+using System;
 
 namespace Taskify.Pages
 {
@@ -14,7 +15,8 @@ namespace Taskify.Pages
         [Inject]
         public ISnackbar Snackbar { get; set; } = null!;
 
-        public TaskItem NewTask { get; set; } = new TaskItem();
+        public TaskItem NewTask { get; set; } = new();
+          
         public List<TaskItem> PendingTasks { get; set; } = new List<TaskItem>();
         public bool HasTasks => PendingTasks.Any();
         [Parameter]

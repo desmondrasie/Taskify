@@ -12,8 +12,8 @@ using Taskify.Data;
 namespace Taskify.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20231010181924_PleaseWork5")]
-    partial class PleaseWork5
+    [Migration("20231011164152_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,7 +25,7 @@ namespace Taskify.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Taskify.Models.TaskDueDetails", b =>
+            modelBuilder.Entity("Taskify.Models.DueDetails", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -92,13 +92,11 @@ namespace Taskify.Migrations
                     b.ToTable("TaskList");
                 });
 
-            modelBuilder.Entity("Taskify.Models.TaskDueDetails", b =>
+            modelBuilder.Entity("Taskify.Models.DueDetails", b =>
                 {
                     b.HasOne("Taskify.Models.TaskItem", "TaskItem")
                         .WithOne("DueDetails")
-                        .HasForeignKey("Taskify.Models.TaskDueDetails", "TaskItemId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("Taskify.Models.DueDetails", "TaskItemId");
 
                     b.Navigation("TaskItem");
                 });

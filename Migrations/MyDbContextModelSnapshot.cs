@@ -22,7 +22,7 @@ namespace Taskify.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Taskify.Models.TaskDueDetails", b =>
+            modelBuilder.Entity("Taskify.Models.DueDetails", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -89,11 +89,11 @@ namespace Taskify.Migrations
                     b.ToTable("TaskList");
                 });
 
-            modelBuilder.Entity("Taskify.Models.TaskDueDetails", b =>
+            modelBuilder.Entity("Taskify.Models.DueDetails", b =>
                 {
                     b.HasOne("Taskify.Models.TaskItem", "TaskItem")
                         .WithOne("DueDetails")
-                        .HasForeignKey("Taskify.Models.TaskDueDetails", "TaskItemId")
+                        .HasForeignKey("Taskify.Models.DueDetails", "TaskItemId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -113,7 +113,8 @@ namespace Taskify.Migrations
 
             modelBuilder.Entity("Taskify.Models.TaskItem", b =>
                 {
-                    b.Navigation("DueDetails");
+                    b.Navigation("DueDetails")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Taskify.Models.TaskList", b =>
