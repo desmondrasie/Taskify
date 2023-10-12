@@ -57,16 +57,15 @@
                 NewTask.DueDetails = new DueDetails();
                 }
                 <MudItem md="3">
-                    <MudDatePicker Label="Due Date" DisableToolbar="true" @bind-Date=NewTask.DueDetails.DueDate />
+                    <MudDatePicker Label="Due Date" @bind-Date="NewTask.DueDetails.DueDate" DisableToolbar="false" PickerVariant="PickerVariant.Dialog" />
                 </MudItem>
                 <MudGrid Justify="Justify.Center">
                     <MudItem md="9">
                     </MudItem>
                     <MudItem md="3" Style="margin-left: -80px; margin-top: -40px">
-                        <MudTimePicker Label="Due Time" AmPm="true" @bind-Time=NewTask.DueDetails.DueTime />
+                        <MudTimePicker PickerVariant="PickerVariant.Dialog" Label="Due Time" AmPm="true" @bind-Time="NewTask.DueDetails.DueTime" />
                     </MudItem>
-                </MudGrid>
-              
+                </MudGrid>              
                 
             </MudGrid>
             <MudGrid Justify="Justify.Center">

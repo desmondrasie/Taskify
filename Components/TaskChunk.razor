@@ -9,7 +9,7 @@
                 Dense="true">
             </MudCheckBox>
         </MudItem>
-        <MudItem sm="9">
+        <MudItem sm="7">
             <MudTextField 
                 Style="margin-bottom: 10px"
                 @bind-Value="@Task.Description" 
@@ -19,8 +19,27 @@
                 Immediate="true">
             </MudTextField>
         </MudItem> 
-        <MudItem sm="1" Style="margin-top: 12px; margin-left: -10px">
+
+        <MudItem sm="3" Style="margin-bottom: -20px">
+            <MudGrid Justify="Justify.SpaceEvenly">
+                <MudItem sm="7">
+                    @if (Task.DueDetails?.DueDate != null)
+                    {
+                        @Task.DueDetails.DueDate.Value.ToString("MMM dd, yyyy")
+                    }
+                    else{
+                        
+                    }
+                </MudItem>
+                <MudItem sm="5">
+                    @if (Task.DueDetails?.DueTime != null)
+                    {
+                        @DateTime.Today.Add(Task.DueDetails.DueTime.Value).ToString("h:mm tt")
+                    }
+                </MudItem>
+            </MudGrid>
         </MudItem>
+ 
         <MudItem sm="1" Style="margin-top: 12px; margin-left: -10px">
             <MudFab 
                                Color="Color.Default" 

@@ -11,7 +11,7 @@
         <h2>Taskify</h2>
         <MudIcon Icon="@Icons.Material.Rounded.AddTask" Size="Size.Large" />
 
-        <MudSwitch Checked="@isDarkMode" Color="Color.Dark" Label="@text" Style="margin-left: auto;" CheckedChanged="@((bool isChecked) => DarkModeToggled(isChecked))" />
+        <MudIconButton Icon="@currentIcon" Style="margin-left: auto;" Size=Size.Large OnClick="@(() => DarkModeToggled(!isDarkMode))" />
     </MudAppBar>
     <MudDrawer @bind-Open="@_drawerOpen">
         <MyNavMenu />
@@ -32,21 +32,23 @@
 
     private MudTheme _theme = new();
     public bool isDarkMode = true;
-    public string text = string.Empty;
+
+    // Define the icon based on the theme
+    public string currentIcon => isDarkMode ? Icons.Material.Outlined.WbSunny : Icons.Material.Outlined.NightsStay;
 
     protected override void OnInitialized()
     {
-        UpdateToggleLabelText();
+        UpdateToggleIcon();
     }
 
     private void DarkModeToggled(bool isChecked)
     {
         isDarkMode = isChecked;
-        UpdateToggleLabelText();
+        UpdateToggleIcon();
     }
 
-    private void UpdateToggleLabelText()
+    private void UpdateToggleIcon()
     {
-        text = isDarkMode ? "Toggle light mode" : "Toggle dark mode";
+        // Update logic if needed
     }
 }

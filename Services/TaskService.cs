@@ -18,16 +18,21 @@ namespace Taskify.Services
 
         public async Task<IEnumerable<TaskItem>> GetAllTasks()
         {
-            return await _context.TaskItem.ToListAsync();
+            return await _context.TaskItem.Include(t => t.DueDetails).ToListAsync();
         }
         public async Task<IEnumerable<TaskItem>> GetPendingTasks()
         {
-            return await _context.TaskItem.Where(t => t.IsChecked == false).ToListAsync();
+            return await _context.TaskItem
+                        .Include(t => t.DueDetails)
+                        .Where(t => t.IsChecked == false)
+                        .ToListAsync();
         }
-
         public async Task<IEnumerable<TaskItem>> GetPendingTasks(int taskListId)
         {
-            return await _context.TaskItem.Where(t => t.IsChecked == false && t.TaskListId == taskListId).ToListAsync();
+            return await _context.TaskItem
+                        .Include(t => t.DueDetails)  // Including DueDetails
+                        .Where(t => t.IsChecked == false && t.TaskListId == taskListId)
+                        .ToListAsync();
         }
 
         public async Task<IEnumerable<TaskItem>> GetCompletedTasks()
@@ -56,20 +61,20 @@ namespace Taskify.Services
         }
         public async Task EditTask(TaskItem task)
         {
-            _context.Entry(task).State = EntityState.Modified; // Mark the task as modified.
+            /*_context.Entry(task).State = EntityState.Modified*/; // Mark the task as modified.
             await _context.SaveChangesAsync(); // Save changes.       
                 
         }
         public async Task CheckTask(TaskItem task)
         {
             task.IsChecked = !task.IsChecked;           
-            _context.Entry(task).State = EntityState.Modified;
+            //_context.Entry(task).State = EntityState.Modified;
             await _context.SaveChangesAsync();
 
         }
         public async Task EditDueDate(TaskItem task)
         {
-            _context.Entry(task).State = EntityState.Modified;
+            //_context.Entry(task).State = EntityState.Modified;
             await _context.SaveChangesAsync();
         }
     }

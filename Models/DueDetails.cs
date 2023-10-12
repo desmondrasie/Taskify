@@ -10,7 +10,5 @@ namespace Taskify.Models
         public TimeSpan? DueTime { get; set; }
         public int TaskItemId { get; set; }
         public TaskItem TaskItem { get; set; } = null!;
-
     }
-
 }

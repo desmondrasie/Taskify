@@ -29,14 +29,12 @@
                                 </MudText>
                             </MudItem>
                             <MudItem sm="1" Style="margin-left: -22px; margin-top:-4px">
-                                <MudMenu Icon="@Icons.Material.Filled.Settings" Dense="true" AnchorOrigin="Origin.CenterRight" TransformOrigin="Origin.TopLeft">
+                                <MudMenu Icon="@Icons.Material.Filled.Settings" Dense="true">
                                     <MudMenuItem OnClick="@(() => OpenDialogEdit(list))">Edit</MudMenuItem>
                                     <MudMenuItem OnClick="@(() => OpenDialogDelete(list))">Delete</MudMenuItem>
                                 </MudMenu>
-                            </MudItem>
-                           
-                        </MudGrid>
-                        
+                            </MudItem>                           
+                        </MudGrid>                        
                     }
                 </MudList>
             }

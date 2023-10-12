@@ -12,8 +12,5 @@ namespace Taskify.Models
         public TaskList? TaskList { get; set; } 
         public int TaskListId { get; set; }
         public DueDetails DueDetails { get; set; } = new();
-
-
-
     }
 }   
