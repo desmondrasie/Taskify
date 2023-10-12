@@ -1,17 +1,20 @@
 ﻿<MudPaper Width="100%" Elevation="2">
     <MudGrid Justify="Justify.FlexStart">
-        <MudItem sm="1">
+        <!-- Checkbox -->
+        <MudItem sm="1" Style="align-self: center">
             <MudCheckBox 
-                Style="margin-top: 20px; margin-left: 15px"
+                Style="margin-left: 15px"
                 Checked="@Task.IsChecked"
                 CheckedChanged="@((bool isChecked) => OnCheck.InvokeAsync(isChecked))"
                 Color="Color.Primary" 
                 Dense="true">
             </MudCheckBox>
         </MudItem>
-        <MudItem sm="7">
+        
+        <!-- Task Description -->
+        <MudItem sm="7" Style="align-self: center">
             <MudTextField 
-                Style="margin-bottom: 10px"
+                Style="font-weight: 500; margin-bottom: 10px"
                 @bind-Value="@Task.Description" 
                 OnBlur="@(() => OnEdit.InvokeAsync(Task))" 
                 @onfocusin="@(() => OnStartEdit.InvokeAsync(Task))" 
@@ -20,29 +23,37 @@
             </MudTextField>
         </MudItem> 
 
-        <MudItem sm="3" Style="margin-bottom: -20px">
+        <!-- Due Date and Time -->
+        <MudItem sm="3" Style="align-self: center">
             <MudGrid Justify="Justify.SpaceEvenly">
-                <MudItem sm="7">
+                <MudItem sm="7" Style="text-align: right">
                     @if (Task.DueDetails?.DueDate != null)
                     {
-                        @Task.DueDetails.DueDate.Value.ToString("MMM dd, yyyy")
+
+                        <MudText Typo="Typo.body2">@Task.DueDetails.DueDate.Value.ToString("MMM dd, yyyy")</MudText>
                     }
-                    else{
-                        
+                    else
+                    {
+                        <MudText Typo="Typo.caption">@noDateText</MudText>
                     }
                 </MudItem>
-                <MudItem sm="5">
+                <MudItem sm="5" Style="text-align: left">
                     @if (Task.DueDetails?.DueTime != null)
                     {
-                        @DateTime.Today.Add(Task.DueDetails.DueTime.Value).ToString("h:mm tt")
+                        <MudText Typo="Typo.caption">@DateTime.Today.Add(Task.DueDetails.DueTime.Value).ToString("h:mm tt")</MudText>
+                    }
+                    else
+                    {
+                        <MudText Typo="Typo.caption">@noTimeText</MudText>
                     }
                 </MudItem>
             </MudGrid>
         </MudItem>
- 
-        <MudItem sm="1" Style="margin-top: 12px; margin-left: -10px">
+
+        <!-- Delete Button -->
+        <MudItem sm="1" Style="align-self: center; margin-left: -10px">
             <MudFab 
-                               Color="Color.Default" 
+                Color="Color.Default" 
                 OnClick="@(() => OnDelete.InvokeAsync(Task))" 
                 EndIcon="@Icons.Material.Rounded.Delete" 
                 Size="Size.Small">
