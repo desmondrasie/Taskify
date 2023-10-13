@@ -7,7 +7,7 @@
 </MudText>
 
 <MudGrid Justify="Justify.Center">
-    <MudItem md="8" xl="6">
+    <MudItem md="9" xl="6">
         @if (CurrentList == null)
         {
             <p>Loading...</p>
@@ -16,35 +16,42 @@
         {
             <MudText Typo="Typo.h6" GutterBottom="false" Align="Align.Left" Style="margin-left: 10px; margin-top: 25px"> <b>@CurrentList.Name</b></MudText>
             //... rest of your component
-        }
-        
+
+            <MudSelect T="string" Label="Sort By" Value="@selectedSort" ValueChanged="@SortTasksChanged" Variant="Variant.Text">
+                <MudSelectItem Value="@("Creation Date")" />
+                <MudSelectItem Value="@("Due Date")" />
+                
+                <!-- Add more sort options here if needed -->
+            </MudSelect>
+
+
             @if (HasTasks)
             {
                 <MudStack Spacing="2">
-                    @foreach (var task in PendingTasks)
+                    @foreach (var task in SortedTasks)
                     {
-                        <TaskChunk
-                            Task="@task"
-                            OnDelete="HandleDeleteTask"
-                            OnEdit="HandleEditTask"
-                            OnStartEdit="StartEdit"
-                            OnCheck="(() => HandleCheckTask(task))">
-                        </TaskChunk>                        
+                        <TaskChunk Task="@task"
+                                   OnDelete="HandleDeleteTask"
+                                   OnEdit="HandleEditTask"
+                                   OnStartEdit="StartEdit"
+                                   OnCheck="(() => HandleCheckTask(task))">
+                        </TaskChunk>
                     }
                 </MudStack>
             }
+
             else
             {
                 <MudText Align="Align.Center" Typo="Typo.overline" Style="margin-left: 10px">
                     There are no pending tasks
                 </MudText>
             }
-       
+       }
     </MudItem>
 </MudGrid>
 
 <MudGrid Justify="Justify.Center">
-    <MudItem md="8" xl="6">
+    <MudItem md="9" xl="6">
         <MudPaper Width="100%" Elevation="3" Square="false" Style="margin-top: 10px; margin-bottom: 50px">
             <MudGrid Justify="Justify.Center">
                
@@ -63,7 +70,7 @@
                     <MudItem md="9">
                     </MudItem>
                     <MudItem md="3" Style="margin-left: -80px; margin-top: -40px">
-                        <MudTimePicker PickerVariant="PickerVariant.Dialog" Label="Due Time" AmPm="true" @bind-Time="NewTask.DueDetails.DueTime" />
+                        <MudTimePicker PickerVariant="PickerVariant.Dialog" MinuteSelectionStep="5" Label="Due Time" AmPm="true" @bind-Time="NewTask.DueDetails.DueTime" />
                     </MudItem>
                 </MudGrid>              
                 

@@ -12,7 +12,7 @@
         </MudItem>
         
         <!-- Task Description -->
-        <MudItem sm="7" Style="align-self: center">
+        <MudItem sm="6" Style="align-self: center">
             <MudTextField 
                 Style="font-weight: 500; margin-bottom: 10px"
                 @bind-Value="@Task.Description" 
@@ -24,17 +24,22 @@
         </MudItem> 
 
         <!-- Due Date and Time -->
-        <MudItem sm="3" Style="align-self: center">
-            <MudGrid Justify="Justify.SpaceEvenly">
-                <MudItem sm="7" Style="text-align: right">
+        <MudItem sm="4" Style="align-self: center">
+            <MudGrid Justify="Justify.FlexEnd">
+                <MudItem sm="1">
+                    <MudText Align="Align.Left" Typo="Typo.caption"> Due: </MudText>
+                </MudItem>
+
+                <MudItem sm="5" Style="text-align: right">
                     @if (Task.DueDetails?.DueDate != null)
                     {
-
-                        <MudText Typo="Typo.body2">@Task.DueDetails.DueDate.Value.ToString("MMM dd, yyyy")</MudText>
+                        <MudText Typo="Typo.caption" Color="@(DateTime.Now.Date > Task.DueDetails.DueDate.Value ? Color.Error : Color.Default)">
+                            @Task.DueDetails.DueDate.Value.ToString("MMM dd, yyyy")
+                        </MudText>
                     }
                     else
                     {
-                        <MudText Typo="Typo.caption">@noDateText</MudText>
+                        <MudText Typo="Typo.caption">@noText</MudText>
                     }
                 </MudItem>
                 <MudItem sm="5" Style="text-align: left">
@@ -44,11 +49,12 @@
                     }
                     else
                     {
-                        <MudText Typo="Typo.caption">@noTimeText</MudText>
+                        <MudText Typo="Typo.caption">@noText</MudText>
                     }
                 </MudItem>
             </MudGrid>
         </MudItem>
+
 
         <!-- Delete Button -->
         <MudItem sm="1" Style="align-self: center; margin-left: -10px">

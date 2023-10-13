@@ -11,7 +11,7 @@ namespace Taskify.Components
         [Parameter] public EventCallback<TaskItem> OnStartEdit { get; set; }
         [Parameter] public EventCallback<bool> OnCheck { get; set; }
 
-        public string noTimeText = "<N/A>";
-        public string noDateText = "<N/A>";
+        public string noText = "<N/A>";
+
     }
 }

@@ -24,12 +24,54 @@ namespace Taskify.Pages
         public TaskList CurrentList { get; set; } = null!;
 
         private string originalDescription = null!;
+
+        private string selectedSort = "Creation Date"; // Default sort option.
+        private List<TaskItem> SortedTasks { get; set; } = new List<TaskItem>();
+
+
+
+        protected override void OnParametersSet()
+        {
+            // Re-sort tasks whenever parameters are updated.
+            SortTasks(selectedSort);
+        }
+
+        // <--- Start of Methods --->
         protected override async Task OnInitializedAsync()
         {
             CurrentList = await ListService.GetListById(ListId);
             PendingTasks = (await TaskService.GetPendingTasks(CurrentList.Id)).ToList();
-            
+            SortTasks(selectedSort);
         }
+        public void SortTasks(string sortBy)
+        {
+            selectedSort = sortBy;
+
+            switch (sortBy)
+            {
+                case "Due Date":
+                    SortedTasks = PendingTasks
+                        .OrderBy(task => task.DueDetails?.DueDate ?? DateTime.MaxValue)
+                        .ThenBy(task => task.DueDetails?.DueTime ?? DateTime.MaxValue.TimeOfDay)
+                        .ToList();
+                    break;
+                case "Creation Date":
+                    SortedTasks = PendingTasks.OrderBy(task => task.Id).ToList();
+                    break;
+                // Add more cases here as per new sort options.
+                
+            }
+            Console.WriteLine($"Sorting by: {sortBy}");
+            StateHasChanged();
+        }
+
+        private void SortTasksChanged(string newSortValue)
+        {
+            selectedSort = newSortValue;
+            SortTasks(selectedSort);
+        }
+
+
         private void StartEdit(TaskItem task)
         {
             originalDescription = task.Description;
@@ -43,6 +85,7 @@ namespace Taskify.Pages
                 //Snackbar.Add($"'{newTask.Description}' has been added.", Severity.Normal);
                 NewTask = new TaskItem();  // Reset for next entry
                 PendingTasks = (await TaskService.GetPendingTasks(CurrentList.Id)).ToList();  // Refresh the list
+                SortTasks(selectedSort);
             }
         }
         protected async Task HandleDeleteTask(TaskItem task)
@@ -51,7 +94,7 @@ namespace Taskify.Pages
             {
                 await TaskService.DeleteTask(task.Id);
                 PendingTasks = (await TaskService.GetPendingTasks(CurrentList.Id)).ToList();  // Refresh the list
-
+                SortTasks(selectedSort);
                 //Snackbar.Add($"'{task.Description}' has been deleted.", Severity.Error);
             }
         }
@@ -71,6 +114,7 @@ namespace Taskify.Pages
         {
             await TaskService.CheckTask(task);
             PendingTasks.Remove(task);
+            SortTasks(selectedSort);
             Snackbar.Add($"'{task.Description}' has been completed! ", Severity.Success);
         }
         protected async Task HandleEditDueDate(TaskItem task)
