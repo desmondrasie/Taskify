@@ -14,9 +14,16 @@
         }
         else
         {
-            <MudText Typo="Typo.h6" GutterBottom="false" Align="Align.Left" Style="margin-left: 10px; margin-top: 25px"> <b>@CurrentList.Name</b></MudText>
-            //... rest of your component
-            <MudGrid Justify="Justify.FlexEnd" Style="margin-bottom: 10px">
+            <MudGrid Justify=Justify.SpaceBetween Style="margin-bottom: 10px">
+                <MudItem sm="3">
+                    <MudText Typo="Typo.h6" GutterBottom="false" Align="Align.Left" Style="margin-left: 10px; margin-top: 25px"> <b>@CurrentList.Name</b></MudText>
+                </MudItem>
+
+                <MudLink Href="/my-lists" Style="margin-right: 20px; margin-top: 50px; margin-bottom: 10px">⬅ My Lists</MudLink>
+               
+                
+            
+            
                 <MudItem sm="3" >
                     <MudSelect T="string" Label="Sort By" Value="@selectedSort" ValueChanged="@SortTasksChanged" Variant="Variant.Text">
                         <MudSelectItem Value="@("Creation Date")" />
