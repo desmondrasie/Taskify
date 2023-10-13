@@ -16,13 +16,16 @@
         {
             <MudText Typo="Typo.h6" GutterBottom="false" Align="Align.Left" Style="margin-left: 10px; margin-top: 25px"> <b>@CurrentList.Name</b></MudText>
             //... rest of your component
-
-            <MudSelect T="string" Label="Sort By" Value="@selectedSort" ValueChanged="@SortTasksChanged" Variant="Variant.Text">
-                <MudSelectItem Value="@("Creation Date")" />
-                <MudSelectItem Value="@("Due Date")" />
-                
-                <!-- Add more sort options here if needed -->
-            </MudSelect>
+            <MudGrid Justify="Justify.FlexEnd" Style="margin-bottom: 10px">
+                <MudItem sm="3" >
+                    <MudSelect T="string" Label="Sort By" Value="@selectedSort" ValueChanged="@SortTasksChanged" Variant="Variant.Text">
+                        <MudSelectItem Value="@("Creation Date")" />
+                        <MudSelectItem Value="@("Due Date")" />
+                        <!-- Add more sort options here if needed -->
+                    </MudSelect>
+                </MudItem>
+            </MudGrid>
+            
 
 
             @if (HasTasks)

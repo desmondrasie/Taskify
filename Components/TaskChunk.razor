@@ -33,7 +33,7 @@
                 <MudItem sm="5" Style="text-align: right">
                     @if (Task.DueDetails?.DueDate != null)
                     {
-                        <MudText Typo="Typo.caption" Color="@(DateTime.Now.Date > Task.DueDetails.DueDate.Value ? Color.Error : Color.Default)">
+                        <MudText Typo="Typo.caption" >
                             @Task.DueDetails.DueDate.Value.ToString("MMM dd, yyyy")
                         </MudText>
                     }
