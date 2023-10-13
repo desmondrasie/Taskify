@@ -2,8 +2,8 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using MudBlazor.Services;
 using Microsoft.EntityFrameworkCore;
-using Taskify.Data;
-using Taskify.Services;
+using ThoughtHarbour.Data;
+using ThoughtHarbour.Services;
 using MudBlazor;
 
 var builder = WebApplication.CreateBuilder(args);

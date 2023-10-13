@@ -1,8 +1,8 @@
-﻿using Taskify.Models;
+﻿using ThoughtHarbour.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks; // This is necessary for the Task type.
 
-namespace Taskify.Services;
+namespace ThoughtHarbour.Services;
 
 
 public interface ITaskService

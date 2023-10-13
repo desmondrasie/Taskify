@@ -1,6 +1,6 @@
-﻿using Taskify.Models;
+﻿using ThoughtHarbour.Models;
 
-namespace Taskify.Services;
+namespace ThoughtHarbour.Services;
 
 public interface IListService
 {

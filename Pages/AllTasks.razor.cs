@@ -1,9 +1,9 @@
-﻿using Taskify.Models;
-using Taskify.Services;
+﻿using ThoughtHarbour.Models;
+using ThoughtHarbour.Services;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 
-namespace Taskify.Pages
+namespace ThoughtHarbour.Pages
 {
     public partial class AllTasks : ComponentBase
     {

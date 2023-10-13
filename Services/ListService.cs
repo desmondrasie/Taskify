@@ -1,12 +1,12 @@
-﻿using Taskify.Models;
+﻿using ThoughtHarbour.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Taskify.Data;
+using ThoughtHarbour.Data;
 using System.Linq;
 
 
-namespace Taskify.Services
+namespace ThoughtHarbour.Services
 {
     public class ListService : IListService
     {

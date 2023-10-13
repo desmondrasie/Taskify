@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Taskify.Models;
+using ThoughtHarbour.Models;
 
-namespace Taskify.Components
+namespace ThoughtHarbour.Components
 {
     public partial class TaskChunk
     {

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Taskify.Models
+namespace ThoughtHarbour.Models
 {
     public class TaskItem
     {

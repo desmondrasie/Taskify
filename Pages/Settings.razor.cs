@@ -1,4 +1,4 @@
-﻿namespace Taskify.Pages
+﻿namespace ThoughtHarbour.Pages
 {
     public partial class Settings
     {

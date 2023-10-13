@@ -1,7 +1,7 @@
 ﻿using MudBlazor;
 using Microsoft.AspNetCore.Components;
 
-namespace Taskify.Pages
+namespace ThoughtHarbour.Pages
 {
     public partial class DeleteListDialog
     {

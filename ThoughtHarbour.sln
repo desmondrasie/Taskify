@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Taskify", "Taskify.csproj", "{524E264D-9891-4F30-99D2-E53F5B0017C1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ThoughtHarbour", "ThoughtHarbour.csproj", "{524E264D-9891-4F30-99D2-E53F5B0017C1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{FC5FD4F9-015C-4939-8AF7-9AE831093D42}"
 	ProjectSection(SolutionItems) = preProject

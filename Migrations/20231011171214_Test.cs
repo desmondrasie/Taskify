@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace Taskify.Migrations
+namespace ThoughtHarbour.Migrations
 {
     /// <inheritdoc />
     public partial class Test : Migration

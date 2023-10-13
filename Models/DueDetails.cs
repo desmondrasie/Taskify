@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-namespace Taskify.Models
+namespace ThoughtHarbour.Models
 
 {
     public class DueDetails

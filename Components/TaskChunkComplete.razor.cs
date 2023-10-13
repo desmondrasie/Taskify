@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Taskify.Models;
-using Taskify.Services;
+using ThoughtHarbour.Models;
+using ThoughtHarbour.Services;
 
-namespace Taskify.Components
+namespace ThoughtHarbour.Components
 {
     public partial class TaskChunkComplete : ComponentBase
     {

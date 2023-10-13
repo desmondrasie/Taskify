@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Taskify.Data;
+using ThoughtHarbour.Data;
 
 #nullable disable
 
-namespace Taskify.Migrations
+namespace ThoughtHarbour.Migrations
 {
     [DbContext(typeof(MyDbContext))]
     [Migration("20231011171214_Test")]

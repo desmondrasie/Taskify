@@ -1,10 +1,10 @@
-﻿using Taskify.Models;
-using Taskify.Services;
+﻿using ThoughtHarbour.Models;
+using ThoughtHarbour.Services;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 using System.Threading.Tasks;
 
-namespace Taskify.Pages
+namespace ThoughtHarbour.Pages
 {
     public partial class CompletedTasks : ComponentBase
     {

@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
-using Taskify.Models;
+using ThoughtHarbour.Models;
 
-namespace Taskify.Data;
+namespace ThoughtHarbour.Data;
 
 public class MyDbContext : DbContext
 {
